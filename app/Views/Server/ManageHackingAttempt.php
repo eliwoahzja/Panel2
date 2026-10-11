@@ -1,6 +1,6 @@
 <?= $this->extend('Layout/Starter') ?>
 
-<?php include('conn.php'); ?>
+<?php include(FCPATH . 'conn.php'); ?>
 
 <?= $this->section('content') ?>
 <style>

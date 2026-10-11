@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include(FCPATH . 'conn.php');
 
 // For Credits
 $sql = "SELECT * FROM credit where id=1";

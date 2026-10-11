@@ -1,5 +1,5 @@
 <?php
-include('conn.php');
+include(FCPATH . 'conn.php');
 
 // For Highest id Ref
 $sqli = "SELECT * FROM referral_code

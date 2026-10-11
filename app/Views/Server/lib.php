@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include(FCPATH . 'conn.php');
                             $sql21 ="SELECT * FROM lib WHERE id='1'";
                             $result21 = mysqli_query($conn, $sql21);
                             $userDetails21 = mysqli_fetch_assoc($result21);

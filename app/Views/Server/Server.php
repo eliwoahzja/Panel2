@@ -1,5 +1,5 @@
 <?php
-include('conn.php');
+include(FCPATH . 'conn.php');
 include('mail.php');
 
 // for maintainece mode

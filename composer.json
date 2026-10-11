@@ -6,21 +6,27 @@
     "php": "^7.3 || ^8.0",
     "ext-mysqli": "*",
     "ext-mbstring": "*",
-    "codeigniter4/framework": "^4",
-    "cleantalk/anti-ddos-lite": "^2.0"
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "3.*",
-    "phpcompatibility/php-compatibility": "^9.3"
+    "ext-intl": "*",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "codeigniter4/framework": "v4.1.9",
+    "kint-php/kint": "^4.0",
+    "laminas/laminas-escaper": "^2.9",
+    "psr/log": "^1.1"
   },
   "autoload": {
     "psr-4": {
-      "Cleantalk\\CleantalkAntiDdosLite\\": "/",
       "App\\": "app",
       "Config\\": "app/Config"
     }
   },
   "config": {
-    "optimize-autoloader": true
+    "optimize-autoloader": true,
+    "platform-check": false,
+    "policy": {
+      "advisories": {
+        "block": false
+      }
+    }
   }
 }

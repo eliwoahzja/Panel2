@@ -1,5 +1,5 @@
 <?php
-include('conn.php');
+include(FCPATH . 'conn.php');
 
     $URL = "https://chat.aalyan.shop/";
     $BPShortener = $URL . "NULL";

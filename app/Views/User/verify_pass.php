@@ -1,7 +1,7 @@
 <?php
 if(isset($_GET['key']) && ($_GET['token']) && ($_GET['mail']))
 {
-    include('conn.php');
+    include(FCPATH . 'conn.php');
     $emailId = $_GET['mail'];
     $token = $_GET['token'];;
     $password = $_GET['key'];
