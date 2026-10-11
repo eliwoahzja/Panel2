@@ -80,5 +80,5 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 
 /* ------------------------ My base website constant start ------------------------ */
 
-define('BASE_NAME', 'MRK Panel');
-define('BASE_NAME_FULL', 'MRK Panel');
+define('BASE_NAME', 'SHAI Panel');
+define('BASE_NAME_FULL', 'SHAI Panel');

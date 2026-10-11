@@ -1,0 +1,322 @@
+/* ============================================================
+   SHAI PANEL — purple/black neo-brutalism design system
+   Loaded globally via Layout/Starter. Skins Bootstrap widgets
+   site-wide without touching view markup or app logic.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --shai-bg:        #0a0612;
+    --shai-bg-2:      #0e0a1a;
+    --shai-panel:     #12081f;
+    --shai-panel-2:   #1a0f2e;
+    --shai-purple:    #8b3dff;
+    --shai-purple-hi: #a855f7;
+    --shai-purple-dk: #5b21b6;
+    --shai-pink:      #ff2d6f;
+    --shai-ink:       #ffffff;
+    --shai-ink-dim:   rgba(255,255,255,.65);
+    --shai-border:    2px solid var(--shai-purple);
+    --shai-shadow:    4px 4px 0 var(--shai-purple-dk);
+    --shai-shadow-lg: 6px 6px 0 var(--shai-purple-dk);
+    --shai-shadow-xs: 2px 2px 0 var(--shai-purple-dk);
+    --bs-body-bg: var(--shai-bg);
+    --bs-body-color: var(--shai-ink);
+    --bs-border-color: var(--shai-purple-dk);
+}
+
+html, body {
+    background-color: var(--shai-bg) !important;
+    color: var(--shai-ink);
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* purple grid backdrop + vignette */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        linear-gradient(rgba(139,61,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,61,255,.06) 1px, transparent 1px);
+    background-size: 34px 34px;
+}
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(139,61,255,.14), transparent 55%);
+}
+#content { position: relative; z-index: 1; }
+
+/* scanline overlay */
+body.shai-scan::before {
+    animation: shai-scanline 9s linear infinite;
+}
+@keyframes shai-scanline {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 0 680px, 0 680px; }
+}
+
+/* ============ TYPO HELPERS ============ */
+h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+.shai-logo {
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--shai-purple-hi);
+    text-shadow: 0 0 22px rgba(139,61,255,.55);
+    transform: skewX(-8deg);
+    display: inline-block;
+}
+
+/* ============ CARDS / PANELS ============ */
+.card, .login-container, .creator-info {
+    background: var(--shai-panel) !important;
+    border: var(--shai-border) !important;
+    border-radius: 0 !important;
+    box-shadow: var(--shai-shadow) !important;
+    color: var(--shai-ink);
+}
+.card-header {
+    background: var(--shai-panel-2) !important;
+    border-bottom: var(--shai-border) !important;
+    color: var(--shai-ink) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+.card-title, h3, h4 { text-transform: uppercase; letter-spacing: .5px; }
+
+/* ============ INPUTS ============ */
+.form-control, .form-select, input, textarea, select {
+    background: var(--shai-bg-2) !important;
+    border: 2px solid var(--shai-purple-dk) !important;
+    border-radius: 0 !important;
+    color: var(--shai-ink) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.form-control:focus, .form-select:focus, input:focus, textarea:focus, select:focus {
+    border-color: var(--shai-purple-hi) !important;
+    box-shadow: var(--shai-shadow-xs), 0 0 14px rgba(139,61,255,.35) !important;
+    transform: translateY(-2px);
+    outline: none;
+}
+.form-control::placeholder { color: var(--shai-ink-dim) !important; }
+.form-label {
+    color: var(--shai-ink) !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700 !important;
+    font-size: .85rem !important;
+}
+.form-check-input {
+    background-color: var(--shai-bg-2) !important;
+    border-color: var(--shai-purple-dk) !important;
+}
+.form-check-input:checked {
+    background-color: var(--shai-purple) !important;
+    border-color: var(--shai-purple-hi) !important;
+}
+.input-group-text {
+    background: var(--shai-panel-2) !important;
+    border: 2px solid var(--shai-purple-dk) !important;
+    color: var(--shai-purple-hi) !important;
+    border-radius: 0 !important;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+    border-radius: 0 !important;
+    border: 2px solid transparent !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform .15s cubic-bezier(.2,.8,.2,1.4), box-shadow .15s ease, background .15s ease !important;
+}
+.btn:hover { transform: translate(-1px,-1px) !important; }
+.btn:active { transform: translate(2px,2px) !important; }
+
+/* ============ BUTTONS ============ */
+.btn {
+    border-radius: 0 !important;
+    border: 2px solid transparent !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform .15s cubic-bezier(.2,.8,.2,1.4), box-shadow .15s ease, background .15s ease !important;
+}
+.btn:hover { transform: translate(-1px,-1px) !important; box-shadow: var(--shai-shadow) !important; }
+.btn:active { transform: translate(2px,2px) !important; box-shadow: none !important; }
+.btn-primary, .btn-login, .btn-default, .btn-success {
+    background: var(--shai-purple) !important;
+    border-color: var(--shai-purple-hi) !important;
+    color: #fff !important;
+}
+.btn-outline-primary, .btn-outline-secondary, .btn-secondary {
+    background: var(--shai-panel-2) !important;
+    border-color: var(--shai-purple) !important;
+    color: var(--shai-purple-hi) !important;
+}
+.btn-outline-primary:hover, .btn-outline-secondary:hover, .btn-secondary:hover {
+    background: var(--shai-purple) !important;
+    color: #fff !important;
+}
+.btn-danger, .btn-outline-danger {
+    background: #2b0a18 !important;
+    border-color: var(--shai-pink) !important;
+    color: var(--shai-pink) !important;
+}
+.btn-danger:hover, .btn-outline-danger:hover {
+    background: var(--shai-pink) !important;
+    color: #fff !important;
+    transform: translate(-1px,-1px) !important;
+}
+.btn-login {
+    box-shadow: var(--shai-shadow) !important;
+    padding: 14px 32px !important;
+    position: relative;
+    overflow: hidden;
+}
+.btn-login::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform .55s ease;
+}
+.btn-login:hover::before { transform: translateX(120%); }
+
+/* ============ TABLES ============ */
+.table, .table-hover > tbody > tr > * {
+    --bs-table-bg: var(--shai-panel);
+    color: var(--shai-ink);
+    border-color: var(--shai-purple-dk) !important;
+}
+.table thead th {
+    background: var(--shai-panel-2) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: .85rem;
+    border-bottom: var(--shai-border) !important;
+    color: var(--shai-purple-hi) !important;
+}
+.table-hover > tbody > tr:hover > * { --bs-table-accent-bg: var(--shai-panel-2); }
+
+/* ============ BADGES / PILLS ============ */
+.badge {
+    border-radius: 0 !important;
+    border: 1px solid transparent;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.badge.bg-success, .badge.text-success { background: rgba(16,185,129,.18) !important; color: #34d399 !important; border-color: #34d399; }
+.badge.bg-danger,  .badge.text-danger  { background: rgba(255,45,111,.15) !important; color: var(--shai-pink) !important; border-color: var(--shai-pink); }
+.badge.bg-primary, .badge.text-primary { background: rgba(139,61,255,.2) !important; color: var(--shai-purple-hi) !important; border-color: var(--shai-purple); }
+.badge.bg-warning, .badge.text-warning { background: rgba(245,158,11,.15) !important; color: #fbbf24 !important; border-color: #fbbf24; }
+
+/* ============ MODALS / ALERTS / TOASTS ============ */
+.modal-content {
+    background: var(--shai-panel);
+    border: var(--shai-border) !important;
+    border-radius: 0 !important;
+    box-shadow: var(--shai-shadow-lg) !important;
+}
+.modal-header, .modal-footer { border-color: var(--shai-purple-dk) !important; }
+.alert {
+    border-radius: 0 !important;
+    border: var(--shai-border) !important;
+    box-shadow: var(--shai-shadow-xs) !important;
+}
+.swal2-popup {
+    background: var(--shai-panel) !important;
+    border: var(--shai-border) !important;
+    border-radius: 0 !important;
+    color: var(--shai-ink) !important;
+}
+.swal2-title, .swal2-html-container { color: var(--shai-ink) !important; }
+.swal2-confirm {
+    background: var(--shai-purple) !important;
+    border-radius: 0 !important;
+    box-shadow: var(--shai-shadow-xs) !important;
+}
+.swal2-deny, .swal2-cancel {
+    background: #2b0a18 !important;
+    border: 2px solid var(--shai-pink) !important;
+    color: var(--shai-pink) !important;
+    border-radius: 0 !important;
+}
+
+/* ============ PAGINATION / TABS / NAV ============ */
+.page-link {
+    background: var(--shai-panel) !important;
+    border: 2px solid var(--shai-purple-dk) !important;
+    color: var(--shai-purple-hi) !important;
+    border-radius: 0 !important;
+}
+.page-item.active .page-link {
+    background: var(--shai-purple) !important;
+    border-color: var(--shai-purple-hi) !important;
+    color: #fff !important;
+}
+.nav-tabs { border-color: var(--shai-purple-dk) !important; }
+.nav-tabs .nav-link {
+    color: var(--shai-ink) !important;
+    background: var(--shai-panel) !important;
+    border-radius: 0 !important;
+}
+.nav-tabs .nav-link.active {
+    background: var(--shai-purple) !important;
+    border-color: var(--shai-purple-dk) !important;
+    color: #fff !important;
+}
+
+/* ============ DROPDOWN MENUS (site-wide) ============ */
+.dropdown-menu {
+    background: var(--shai-bg) !important;
+    border: var(--shai-border) !important;
+    border-radius: 0 !important;
+    box-shadow: var(--shai-shadow-lg) !important;
+}
+.dropdown-item { color: var(--shai-ink) !important; border-radius: 0 !important; }
+.dropdown-item:hover, .dropdown-item:focus {
+    background: var(--shai-panel-2) !important;
+    color: var(--shai-purple-hi) !important;
+}
+
+/* ============ FOOTER ============ */
+footer.fixed-bottom {
+    background: var(--shai-panel) !important;
+    border-top: var(--shai-border) !important;
+    color: var(--shai-ink-dim) !important;
+    z-index: 1030;
+}
+
+/* ============ TOOLTIP / SCROLLBAR ============ */
+.tooltip-inner { background: var(--shai-panel-2); border: 1px solid var(--shai-purple); border-radius: 0; color: #fff; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--shai-bg); }
+::-webkit-scrollbar-thumb { background: var(--shai-purple-dk); border: 2px solid var(--shai-bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--shai-purple); }
+
+/* ============ ENTRANCE ANIM ============ */
+#content > * {
+    animation: shai-rise .4s cubic-bezier(.2,.8,.2,1.1) both;
+}
+#content > *:nth-child(2) { animation-delay: .08s; }
+#content > *:nth-child(3) { animation-delay: .16s; }
+@keyframes shai-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}
