@@ -1,27 +1,26 @@
 {
-  "name": "cleantalk/anti-ddos-lite",
-  "description": "A small PHP app to protect your site against DDoS attack or crawling web site by bots.",
-  "version": "2.0.2",
-  "authors": [
-    {
-      "name": "CleanTalk Team",
-      "email": "support@cleantalk.org"
-    }
-  ],
+  "name": "eliwoahzja/shai-panel",
+  "description": "SHAI Panel - CodeIgniter 4 application with SHAI DDoS protection library",
   "license": "GPL-3.0-or-later",
-  "autoload": {
-    "psr-4": {
-      "Cleantalk\\CleantalkAntiDdosLite\\": "/"
-    }
+  "require": {
+    "php": "^7.3 || ^8.0",
+    "ext-mysqli": "*",
+    "ext-mbstring": "*",
+    "codeigniter4/framework": "^4",
+    "cleantalk/anti-ddos-lite": "^2.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.*",
     "phpcompatibility/php-compatibility": "^9.3"
   },
-  "scripts": {
-    "test": [
-      "vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-      "vendor/bin/phpcs --standard=tests/.phpcs.xml"
-    ]
+  "autoload": {
+    "psr-4": {
+      "Cleantalk\\CleantalkAntiDdosLite\\": "/",
+      "App\\": "app",
+      "Config\\": "app/Config"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
   }
 }
