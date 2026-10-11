@@ -1,28 +1,8 @@
 <?php
 
-/**
- * SHAI Panel — Anti-DDoS / Anti-Crawler protection library
- * Hardened rewrite of CleanTalk Anti-DDoS-Lite.
- *
- * Security improvements over the original:
- *  - SHA-256 + salt instead of broken MD5 for secure_key derivation
- *  - Timing-safe cookie comparison via hash_equals() (prevents timing attacks)
- *  - Cookie flags: Secure + HttpOnly + SameSite=Strict by default
- *  - Request method allowlist (blocks TRACE/TRACK/OTHERS)
- *  - Stricter bot heuristics: empty/missing User-Agent, missing Accept-Language,
- *    headless/navigation-webdriver presence, low-entropy UA
- *  - Nonce challenge: the block page issues a one-time token that JS must echo back;
- *    without it the reload is rejected (stops simple auto-reload bots)
- *  - IP scoring ring buffer (file-backed) to throttle repeated offenders
- *  - No inline obfuscation/marketing script that executes on the block page
- *
- * @version 3.0.0
- * @package SHAI Panel
- */
-
 const SHAI_DEFAULT_SALT_LENGTH = 32;
 const SHAI_COOKIE_SAMESITE     = 'Strict';
-const SHAI_COOKIE_SECURE       = true;   // force Secure on HTTPS; caller may override
+const SHAI_COOKIE_SECURE       = true;
 const SHAI_COOKIE_HTTPONLY     = true;
 
 const SHAI_ALLOWED_METHODS = ['GET', 'HEAD'];
@@ -30,20 +10,6 @@ const SHAI_BLOCK_SCORE = 3;
 const SHAI_SCORE_FILE = 'anti_ddos_ip_scores.dat';
 
 
-/**
- * Main DDoS protection dispatcher.
- *
- * @param array $data
- *   remote_ip        — visitor IP address
- *   anti_ddos_salt   — shared secret salt (generate once, store securely)
- *   secure_label     — cookie name prefix
- *   redirect_delay   — seconds before auto-redirect on the block page
- *   secure_cookie_days — lifetime of the pass cookie
- *   server_url       — URL to redirect to after passing the challenge
- *   anti_ddos_debug  — bool, enable error_log debugging
- *   test_headless    — bool, allow headless bypass for testing
- *   skip_not_rated_ua — bool, allow trusted UA bypass
- */
 function antiDdosProtectionMain($data)
 {
     if (!isset($data['remote_ip']) || $data['remote_ip'] === '') {
@@ -104,9 +70,6 @@ function antiDdosProtectionMain($data)
     SHAI_showBlockPageAndExit($data);
 }
 
-/**
- * Set a security cookie with Secure + HttpOnly + SameSite=Strict by default.
- */
 function SHAI_setSecureCookie(
     $name,
     $value = '',
@@ -128,9 +91,7 @@ function SHAI_setSecureCookie(
     $serverHttps = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) : '';
     $serverPort  = isset($_SERVER['SERVER_PORT']) ? (int) $_SERVER['SERVER_PORT'] : 0;
 
-    if (!is_null($secure)) {
-        // caller override
-    } else {
+    if (is_null($secure)) {
         $secure = ($serverHttps !== 'off' && $serverHttps !== '')
             || $serverPort === 443;
     }
@@ -152,10 +113,6 @@ function SHAI_setSecureCookie(
     }
 }
 
-/**
- * Returns true when the visitor already holds a valid pass cookie.
- * Uses hash_equals() to avoid timing side-channels.
- */
 function antiDdosSkipUserReentry($data)
 {
     $cookieName = $data['secure_label'];
@@ -242,10 +199,6 @@ function antiDdosSkipVisitorsFromTrustedUa($data)
 }
 
 
-/**
- * Check for headless / automation signals.
- * Stronger than the original: also inspects common automation markers.
- */
 function SHAI_checkHeadless($data)
 {
     if (!empty($data['test_headless'])) {
@@ -269,9 +222,6 @@ function SHAI_checkHeadless($data)
 }
 
 
-/**
- * Look for headers / UA patterns that suggest automation.
- */
 function SHAI_requestHeaderHintsAtAutomation($data)
 {
     $ua = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
@@ -370,9 +320,6 @@ function SHAI_requestMethodAllowed($data)
 }
 
 
-/**
- * Read or initialise the IP score store.
- */
 function SHAI_loadScores()
 {
     $file = SHAI_scoreFilePath();
@@ -394,9 +341,6 @@ function SHAI_loadScores()
 }
 
 
-/**
- * Persist the IP score store.
- */
 function SHAI_saveScores(array $scores)
 {
     $file = SHAI_scoreFilePath();
@@ -417,20 +361,12 @@ function SHAI_saveScores(array $scores)
 }
 
 
-/**
- * Return the file path for the score store.
- * Caller may override SHAI_SCORE_FILE constant or pass a custom path.
- */
 function SHAI_scoreFilePath()
 {
-    // Try to place the score file next to this library by default.
     $libDir = dirname(__FILE__);
     return $libDir . DIRECTORY_SEPARATOR . (defined('SHAI_SCORE_FILE') ? SHAI_SCORE_FILE : 'anti_ddos_ip_scores.dat');
 }
 
-/**
- * Get the current score for an IP.  Each call from a blocked page increments.
- */
 function SHAI_ipScore($data)
 {
     $ip    = $data['remote_ip'];
@@ -444,9 +380,6 @@ function SHAI_ipScore($data)
 }
 
 
-/**
- * Increment the score for an IP (called when the block page is served).
- */
 function SHAI_incrementIpScore($data)
 {
     $ip     = $data['remote_ip'];
@@ -458,7 +391,6 @@ function SHAI_incrementIpScore($data)
 
     $scores[$ip] = (int) $scores[$ip] + 1;
 
-    // Cap the score so a single IP cannot inflate it unboundedly.
     if ($scores[$ip] > SHAI_BLOCK_SCORE) {
         $scores[$ip] = SHAI_BLOCK_SCORE;
     }
@@ -467,9 +399,6 @@ function SHAI_incrementIpScore($data)
 }
 
 
-/**
- * Reset the score for an IP after it successfully passes the challenge.
- */
 function SHAI_clearIpScore($data)
 {
     $ip     = $data['remote_ip'];
@@ -482,15 +411,10 @@ function SHAI_clearIpScore($data)
 }
 
 
-/**
- * Derive a visitor IP, falling back to REMOTE_ADDR.
- */
 function getClientIp($data)
 {
     $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
 
-    // Honour a trusted forwarded header only if the app configures it.
-    // (Left simple here; a full proxy setup would validate the proxy chain.)
     if (!empty($data['trust_proxies'])) {
         $forwarded = isset($_SERVER['HTTP_X_FORWARDED_FOR'])
             ? $_SERVER['HTTP_X_FORWARDED_FOR']
@@ -505,27 +429,18 @@ function getClientIp($data)
 }
 
 
-/**
- * Generate a random salt for anti_ddos_salt (call once, store securely).
- */
 function SHAI_generateSalt($length = SHAI_DEFAULT_SALT_LENGTH)
 {
     return bin2hex(random_bytes($length));
 }
 
 
-/**
- * Check whether the fire dat file exists (compatibility hook from original).
- */
 function antiDdosCheckDatFileExist()
 {
     return file_exists('anti_ddos_protection_fire.dat');
 }
 
 
-/**
- * Requirements check (compatibility hook from original).
- */
 function checkRequirements()
 {
     if (version_compare(phpversion(), '5.6', '<')) {
