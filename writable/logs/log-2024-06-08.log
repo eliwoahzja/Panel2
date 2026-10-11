@@ -1,0 +1,106 @@
+CRITICAL - 2024-06-08 11:59:05 --> syntax error, unexpected '}'
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/home/nzchbrku/...')
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2024-06-08 11:59:07 --> syntax error, unexpected '}'
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/home/nzchbrku/...')
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2024-06-08 11:59:11 --> syntax error, unexpected '}'
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/home/nzchbrku/...')
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2024-06-08 11:59:17 --> syntax error, unexpected '}'
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/home/nzchbrku/...')
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2024-06-08 12:00:31 --> Undefined variable: dtrn
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(510): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/home/nzchbrku/...', 510, Array)
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(471): App\Controllers\Keys->generate_action()
+#2 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(824): App\Controllers\Keys->generate()
+#3 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Keys))
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2024-06-08 12:00:48 --> Undefined variable: dtrn
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(510): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/home/nzchbrku/...', 510, Array)
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(471): App\Controllers\Keys->generate_action()
+#2 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(824): App\Controllers\Keys->generate()
+#3 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Keys))
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2024-06-08 12:00:54 --> Undefined variable: dtrn
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(510): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/home/nzchbrku/...', 510, Array)
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(471): App\Controllers\Keys->generate_action()
+#2 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(824): App\Controllers\Keys->generate()
+#3 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Keys))
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2024-06-08 12:03:23 --> Undefined variable: dtrn
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(510): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/home/nzchbrku/...', 510, Array)
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(471): App\Controllers\Keys->generate_action()
+#2 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(824): App\Controllers\Keys->generate()
+#3 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Keys))
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2024-06-08 12:20:16 --> Undefined variable: dtrn
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(510): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', '/home/nzchbrku/...', 510, Array)
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(471): App\Controllers\Keys->generate_action()
+#2 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(824): App\Controllers\Keys->generate()
+#3 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Keys))
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2024-06-08 12:22:57 --> syntax error, unexpected '->' (T_OBJECT_OPERATOR)
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('/home/nzchbrku/...')
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Autoloader/Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(789): class_exists('\\App\\Controller...', true)
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(397): CodeIgniter\CodeIgniter->startController()
+#6 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2024-06-08 18:03:52 --> Duplicate entry 'Marie123' for key 'user_key'
+CRITICAL - 2024-06-08 18:03:52 --> Duplicate entry 'Marie123' for key 'user_key'
+#0 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(292): mysqli->query('INSERT INTO `ke...', 0)
+#1 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Database/BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ke...')
+#2 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Database/BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ke...')
+#3 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1759): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ke...', Array, false)
+#4 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Model.php(239): CodeIgniter\Database\BaseBuilder->insert()
+#5 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/BaseModel.php(738): CodeIgniter\Model->doInsert(Array)
+#6 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/Model.php(620): CodeIgniter\BaseModel->insert(Array, true)
+#7 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(587): CodeIgniter\Model->insert(Array)
+#8 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/app/Controllers/Keys.php(472): App\Controllers\Keys->generate_action()
+#9 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(824): App\Controllers\Keys->generate()
+#10 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(410): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Keys))
+#11 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/vendor/codeigniter4/framework/system/CodeIgniter.php(318): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 /home/nzchbrku/domains/bonakidsilaakrigs.x10.mx/public_html/index.php(39): CodeIgniter\CodeIgniter->run()
+#13 {main}
