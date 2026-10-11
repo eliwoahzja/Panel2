@@ -64,6 +64,7 @@ class Auth extends BaseController
         $data = [
             'title' => 'Register',
             'validation' => Services::validation(),
+            'user_ip' => $this->getUserIP(),
         ];
         return view('Auth/register', $data);
     }

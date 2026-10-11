@@ -329,7 +329,7 @@ include('conn.php');
 
                     <div class="form-group">
                         <label for="ip" class="form-label">𝑰𝑷 𝑨𝒅𝒅𝒓𝒆𝒔𝒔 🌐</label>
-                        <input type="text" class="form-control" id="ip" placeholder="<?php echo $user_ip ?>" readonly>
+                        <input type="text" class="form-control" id="ip" placeholder="<?php echo isset($user_ip) ? esc($user_ip) : '' ?>" readonly>
                     </div>
 
                     <button type="submit" class="btn btn-register">
