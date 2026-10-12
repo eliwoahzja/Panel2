@@ -15,6 +15,7 @@ use CodeIgniter\Controller;
 
 class User extends BaseController
 {
+    protected $time, $accExpire, $accLevel;
     protected $model, $userid, $user;
 
     public function __construct()
@@ -187,7 +188,7 @@ public function DeleteAllHistory() {
     {
         // API for DataTables
         $model = $this->model;
-        return $model->API_getUser();
+        return $this->response->setJSON($model->API_getUser());
     }
 
     public function manage_users()

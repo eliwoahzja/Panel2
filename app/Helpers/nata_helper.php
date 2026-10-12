@@ -85,3 +85,70 @@ function getPrice($price, $duration, $device_max)
     $result = ($priceReal * $device_max);
     return ($result <= 0) ? false : $result;
 }
+
+
+function datatables_json(string $table, array $where = [], array $searchColumns = [], array $formatters = [], string $select = '*', array $orderMap = [], string $defaultOrder = '')
+{
+    $db      = db_connect();
+    $request = service('request');
+
+    $draw   = (int) ($request->getGet('draw') ?? 1);
+    $search = trim((string) ($request->getGet('search')['value'] ?? ''));
+    $start  = max(0, (int) ($request->getGet('start') ?? 0));
+    $length = (int) ($request->getGet('length') ?? 10);
+
+    $applyWhere = static function ($builder) use ($where) {
+        foreach ($where as $col => $val) {
+            $builder->where($col, $val);
+        }
+    };
+    $applySearch = static function ($builder) use ($search, $searchColumns) {
+        if ($search === '' || !$searchColumns) {
+            return;
+        }
+        $builder->groupStart();
+        foreach ($searchColumns as $col) {
+            $builder->orLike($col, $search);
+        }
+        $builder->groupEnd();
+    };
+
+    $total = $db->table($table);
+    $applyWhere($total);
+    $recordsTotal = $total->countAllResults();
+
+    $filtered = $db->table($table);
+    $applyWhere($filtered);
+    $applySearch($filtered);
+    $recordsFiltered = $filtered->countAllResults();
+
+    $data = $db->table($table);
+    $applyWhere($data);
+    $applySearch($data);
+    $data->select($select);
+
+    $orderIndex = (int) ($request->getGet('order')[0]['column'] ?? 0);
+    $orderKey   = (string) ($request->getGet('columns')[$orderIndex]['data'] ?? '');
+    $orderDir   = strtolower((string) ($request->getGet('order')[0]['dir'] ?? 'desc')) === 'asc' ? 'asc' : 'desc';
+    $orderBy    = $orderMap[$orderKey] ?? ($orderKey !== '' && in_array($orderKey, $searchColumns, true) ? $orderKey : $defaultOrder);
+    if ($orderBy !== '') {
+        $data->orderBy($orderBy, $orderDir);
+    }
+    if ($length > 0) {
+        $data->limit($length, $start);
+    }
+
+    $rows = $data->get()->getResult();
+    foreach ($rows as $row) {
+        foreach ($formatters as $col => $callback) {
+            $row->$col = $callback($row->$col ?? null, $row);
+        }
+    }
+
+    return [
+        'draw'            => $draw,
+        'recordsTotal'    => $recordsTotal,
+        'recordsFiltered' => $recordsFiltered,
+        'data'            => $rows,
+    ];
+}

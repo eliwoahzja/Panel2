@@ -9,7 +9,7 @@ use Config\Services;
 
 class Keys extends BaseController
 {
-    protected $userModel, $model, $user, $userId;
+    protected $userModel, $model, $user, $userId, $time, $game_list, $duration, $price, $bulk_key;
     public function __construct()
     {
         $this->userModel = new UserModel();
@@ -51,7 +51,7 @@ class Keys extends BaseController
            90 => 90,
            239976 => 1000,
         ];
-     if($user->level == 1)
+     if(($user->level ?? null) == 1)
      {
         $this->bulk_key = [
            1 => '1 Key',
@@ -217,7 +217,7 @@ public function startDate(){//Un-used Keys
     {
         // ? API for DataTable Keys
         $model = $this->model;
-        return $model->API_getKeys();
+        return $this->response->setJSON($model->API_getKeys());
     }
     public function api_key_reset()
     {
@@ -508,9 +508,10 @@ public function startDate(){//Un-used Keys
     $drtn = $this->request->getPost('duration');
     $loopcount = $this->request->getPost('loopcount');
     $getPrice = getPrice($this->price, $drtn, $loopcount, $maxd);
-    $chanlicense = $this->request->getPost('user_key');
-    $prefix = $this->request->getPost('prefix');
-    $niga;
+    $customMode = $this->request->getPost('custominput') === 'custom';
+    $customText = trim((string) $this->request->getPost('cuslicense'));
+    $prefix = 'CHRIS';
+    $niga = '';
 
     if  ($drtn == 1){
         $niga = "1";
@@ -533,11 +534,11 @@ public function startDate(){//Un-used Keys
      elseif($drtn == 239976){
         $niga = "9999";
     }
-    if($prefix == ""){
-        $prefix = "CHRIS";
-    }
-    if (empty($chanlicense)) {
-        $chanlicense = $niga ."x". $prefix . "-". random_string('alnum', 10);
+    if ($customMode) {
+        $chanlicense = $customText;
+        $loopcount = 1;
+    } else {
+        $chanlicense = $niga . "x" . $prefix . "-" . random_string('alnum', 10);
     }
 
     $game_list = implode(",", array_keys($this->game_list));
@@ -567,6 +568,19 @@ public function startDate(){//Un-used Keys
             ]
         ],
     ];
+
+    if ($customMode) {
+        $form_rules['cuslicense'] = [
+            'label' => 'Custom key',
+            'rules' => 'required|alpha_numeric|min_length[4]|max_length[16]|is_unique[keys_code.user_key]',
+            'errors' => [
+                'alpha_numeric' => 'Custom key may only contain letters and numbers.',
+                'min_length' => 'Custom key must be at least 4 characters.',
+                'max_length' => 'Custom key may not exceed 16 characters.',
+                'is_unique' => 'This custom key already exists.',
+            ],
+        ];
+    }
 
     $validation = Services::validation();
 
@@ -669,4 +683,47 @@ public function startDate(){//Un-used Keys
         return redirect()->back()->with('msgDanger', $msgDanger);
     }
 }
+
+    public function memberKey()
+    {
+        $data = [
+            'title' => 'Member Key',
+            'searched' => '',
+            'result' => null,
+            'game_list' => $this->game_list,
+            'time' => $this->time,
+        ];
+
+        if ($this->request->getMethod() === 'post') {
+            $searched = trim((string) $this->request->getPost('member_key'));
+            $data['searched'] = $searched;
+            $key = $searched !== '' ? $this->model->getKeys($searched) : null;
+
+            if ($key) {
+                $doReset = $this->request->getPost('action') === 'reset';
+                if ($doReset) {
+                    $this->model->set('devices', NULL)->where('user_key', $searched)->update();
+                    $this->model->set('expired_date', NULL)->where('user_key', $searched)->update();
+                    $key = $this->model->getKeys($searched);
+                }
+                $devices = $key->devices
+                    ? array_filter(explode(',', reduce_multiples($key->devices, ',', true)))
+                    : [];
+                $data['result'] = [
+                    'found' => true,
+                    'game' => $this->game_list[$key->game] ?? $key->game,
+                    'duration' => $key->duration,
+                    'devices' => count($devices),
+                    'max_devices' => (int) $key->max_devices,
+                    'expired' => $key->expired_date,
+                    'status' => (int) $key->status,
+                    'reset' => $doReset,
+                ];
+            } else {
+                $data['result'] = ['found' => false];
+            }
+        }
+
+        return view('Keys/member_key', $data);
+    }
 }

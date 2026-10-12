@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use \Hermawan\DataTables\DataTable;
 
 class UserModel extends Model
 {
@@ -40,25 +39,31 @@ class UserModel extends Model
 
     public function API_getUser()
     {
-        $connect = db_connect();
-        $builder = $connect->table('users');
-
         $user = $this->getUser();
-        if ($user->level != 1) {
-            $builder->where('uplink', $user->username);
+
+        $where = [];
+        if ($user == null or $user->level != 1) {
+            $where['uplink'] = $user->username;
         }
 
-        $builder->select('CONCAT(users.id_users) as id, username, fullname, saldo, level, status, uplink');
-
-        return DataTable::of($builder)
-            ->setSearchableColumns(['username', 'fullname', 'saldo', 'uplink'])
-            ->format('fullname', function ($value) {
+        $formatters = [
+            'fullname' => function ($value) {
                 return $value ? esc(word_limiter($value, 1, '')) : '';
-            })
-            ->format('level', function ($value) {
+            },
+            'level' => function ($value) {
                 return getLevel($value);
-            })
-            ->toJson(true);
+            },
+        ];
+
+        return datatables_json(
+            'users',
+            $where,
+            ['username', 'fullname', 'saldo', 'uplink'],
+            $formatters,
+            'id_users as id, username, fullname, saldo, level, status, uplink',
+            ['id' => 'id_users', 'level' => 'level', 'saldo' => 'saldo'],
+            'id_users'
+        );
     }
 
     public function clientIp()

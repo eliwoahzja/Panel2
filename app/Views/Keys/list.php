@@ -309,6 +309,36 @@
     .dataTables_info, .dataTables_length label, .dataTables_filter label {
         color: var(--light-color);
     }
+    .dataTables_wrapper .dataTables_processing {
+        background: var(--shai-surface, #13131a);
+        border: 1.5px solid var(--shai-line, #262630);
+        color: var(--shai-dim, #8b8b99);
+        box-shadow: none;
+        border-radius: 0;
+        font-size: .72rem;
+        letter-spacing: .08em;
+        padding: 6px 14px;
+    }
+    .btn-secondary {
+        padding: .55rem 1rem;
+    }
+    @media (max-width: 575.98px) {
+        .card { margin-top: 12px; border-radius: 16px; }
+        .card-header { font-size: 1.02rem; padding: 12px 14px; border-radius: 16px 16px 0 0; }
+        .card-header .col-pt-1 i { font-size: 1.15rem; margin-right: 8px; }
+        .card-header .btn-secondary { padding: .4rem .7rem; font-size: .8rem; }
+        .card-body { padding: 14px 10px; }
+        .table th, .table td { padding: .6rem .45rem; font-size: .85rem; }
+        .keyBlur { font-size: .85em; padding: 2px 6px; letter-spacing: .5px; }
+        .btn-action { padding: 6px 8px; margin: 0 2px; }
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter { font-size: .82rem; margin-bottom: .8rem; }
+        .dataTables_filter input, .dataTables_length select {
+            padding: .4rem .6rem;
+            font-size: .82rem;
+            border-radius: 8px;
+        }
+    }
 
 </style>
 <!-- Particles.js Container -->
@@ -359,6 +389,7 @@
  </div>
  <div class="card-body">
  <?php if ($keylist) : ?>
+ <div id="keysLoadError" class="text-center small" style="display:none;color:var(--shai-danger);margin-bottom:10px;"></div>
  <div class="table-responsive">
  <table id="datatable" class="table table-hover text-center" style="width:100%">
  <thead>
@@ -448,11 +479,20 @@
             ],
             ajax: {
                 url: "<?= site_url('keys/api') ?>",
+                success: function() {
+                    $('#keysLoadError').hide().text('');
+                },
                 error: function (xhr, error, thrown) {
-                    console.error("DataTables AJAX Error:", thrown);
-                    console.error("Response Text:", xhr.responseText);
-                    // You can add a user-friendly message here if needed
-                    // $('#datatable').html('<p class="text-danger text-center">Failed to load data. Please try again later.</p>');
+                    $('.dataTables_wrapper .dataTables_processing').hide();
+                    var msg = 'Failed to load keys. ';
+                    if (xhr.status === 0 || xhr.status === 302 || xhr.status === 401) {
+                        msg += 'Your session may have expired - refresh the page.';
+                    } else if (xhr.status === 500) {
+                        msg += 'The server returned an error - try again later.';
+                    } else {
+                        msg += 'Try again later.';
+                    }
+                    $('#keysLoadError').text(msg).show();
                 }
             },
             columns: [

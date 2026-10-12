@@ -109,6 +109,7 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
 });
 
 $routes->match(['get', 'post'], 'connect', 'Connect::index');
+$routes->match(['get', 'post'], 'member-key', 'Keys::memberKey');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

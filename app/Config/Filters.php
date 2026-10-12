@@ -38,7 +38,7 @@ class Filters extends BaseConfig
 			],
 			'auth' => [
 				'except' => [
-					'/', 'login', 'register', 'connect',
+					'/', 'login', 'register', 'connect', 'member-key',
 				]
 			],
 			// 'honeypot',
