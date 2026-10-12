@@ -36,7 +36,7 @@ class Auth extends BaseController
     }
     public function index()
     {
-        /* ---------------------------- Debugmode --------------------------- */
+        
         $a = $this->userModel->getUser(session('userid'));
         dd($a, session());
     }

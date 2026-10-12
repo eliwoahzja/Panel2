@@ -42,14 +42,14 @@
           margin: 5px 5px 5px 5px;
         }
         
-        /* Hide default HTML checkbox */
+        
         .switch input {
           opacity: 0;
           width: 0;
           height: 0;
         }
         
-        /* The slider */
+        
         .slider {
           position: absolute;
           cursor: pointer;
@@ -88,7 +88,7 @@
           transform: translateX(20px);
         }
         
-        /* Rounded sliders */
+        
         .slider.round {
           border-radius: 34px;
         }
@@ -111,9 +111,8 @@
         </div>
     </main>
     <footer class="fixed-bottom nb-footer">
-        <div class="container d-flex flex-wrap justify-content-between align-items-center py-2">
-            <span class="nb-footer-brand">SHAI<em>.</em>PANEL</span>
-            <span class="nb-footer-tag">&copy; <?= date('Y') ?> &nbsp;·&nbsp; <span class="nb-dot"></span> online</span>
+        <div class="container py-2">
+            <small>&copy; <?= date('Y') ?> <?= BASE_NAME ?></small>
         </div>
     </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

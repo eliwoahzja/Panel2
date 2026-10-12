@@ -12,14 +12,14 @@ class UserModel extends Model
     protected $allowedFields = ['username', 'fullname', 'email', 'saldo', 'level', 'status', 'uplink', 'password', 'user_ip', 'expiration_date', 'reset_link_token', 'exp_date', 'logged_in'];
     protected $useTimestamps = true;
     
-    /*=================================================================*/
+    
     
     protected $table_m      = 'modname';
     protected $primaryKey_m = 'id';
     protected $allowedFields_m = ['modname'];
     
     
-    /*=================================================================*/
+    
 
     public function getUser($userid = false, $where = 'default')
     {

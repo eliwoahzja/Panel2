@@ -21,16 +21,15 @@ if (!isset($_SERVER['REMOTE_ADDR'])) {
     return;
 }
 
-// Define exceptions for anti-DDoS protection
 $exceptions = [
-    'https://ethnir.x10.mx/connect',
- // LAGAY MO DITO /connect mo di nayan mag coconection failure.
+    '/connect',
 ];
 
-// Check if the request URL is in exceptions
+$requestPath  = parse_url(isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/', PHP_URL_PATH);
 $is_exception = false;
+
 foreach ($exceptions as $exception) {
-    if (strpos($_SERVER['REQUEST_URI'], $exception) !== true) {
+    if ($exception !== '' && strpos($requestPath, $exception) !== false) {
         $is_exception = true;
         break;
     }

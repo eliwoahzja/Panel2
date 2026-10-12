@@ -7,23 +7,23 @@ use App\Models\KeysModel;
 class Connect extends BaseController
 {
     protected $model, $game, $uKey, $sDev;
+    protected $maintenance, $staticWords, $dbReady;
 
     public function __construct()
     {
         include('conn.php');
 //=================================================
-        $sql1 ="select * from onoff where id=1";
-        $result1 = mysqli_query($conn, $sql1);
-        $userDetails1 = mysqli_fetch_assoc($result1);
+        $this->dbReady = isset($conn) && $conn instanceof mysqli;
+        $userDetails1  = null;
+
+        if ($this->dbReady) {
+            $result1      = mysqli_query($conn, "select * from onoff where id=1");
+            $userDetails1 = $result1 ? mysqli_fetch_assoc($result1) : null;
+        }
 //=================================================
         $this->model = new KeysModel();
 //=================================================
-        if($userDetails1['status'] == 'on')
-        {
-            $this->maintenance = true;
-        } else {
-            $this->maintenance = false;
-        }
+        $this->maintenance = ($userDetails1 && $userDetails1['status'] == 'on');
 //=================================================
         $this->staticWords = "Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz9E";
     }
@@ -48,12 +48,19 @@ class Connect extends BaseController
             ];
             
             
-            $this->response->setJSON($nata);
+            return $this->response->setJSON($nata);
         }
     }
 
     public function index_post()
     {
+        if (!$this->dbReady) {
+            return $this->response->setJSON([
+                'status' => false,
+                'reason' => 'Panel database unavailable, try again later. Contact: @Christdmm',
+            ]);
+        }
+
         $isMT = $this->maintenance;
         $game = $this->request->getPost('game');
         $uKey = $this->request->getPost('user_key');
