@@ -209,11 +209,15 @@ class Auth extends BaseController
                     include('conn.php');
                     $sql = "SELECT `acc_expiration` FROM `referral_code` WHERE `Referral` = '".$referral."'";
                     $query = mysqli_query($conn, $sql);
-                    $period = mysqli_fetch_assoc($query);
-                    
+                    $periodRow = $query ? mysqli_fetch_assoc($query) : null;
+
                     $sql1 = "SELECT `level` FROM `referral_code` WHERE `Referral` = '".$referral."'";
                     $query1 = mysqli_query($conn, $sql1);
-                    $userLevel = mysqli_fetch_assoc($query1);
+                    $levelRow = $query1 ? mysqli_fetch_assoc($query1) : null;
+
+                    // scalars only (previously the whole assoc row was passed through)
+                    $period    = !empty($periodRow['acc_expiration']) ? $periodRow['acc_expiration'] : ($rCheck->acc_expiration ?? null);
+                    $userLevel = isset($levelRow['level']) ? $levelRow['level'] : ($rCheck->level ?? 1);
                     $data_register = [
                         'email' => $email,
                         'username' => $userna,
