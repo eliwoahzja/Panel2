@@ -51,6 +51,7 @@ class Auth extends BaseController
         $data = [
             'title' => 'Login',
             'validation' => Services::validation(),
+            'user_ip' => $this->getUserIP(),
         ];
         return view('Auth/login', $data);
     }
@@ -105,8 +106,13 @@ class Auth extends BaseController
                     $data = [
                         'userid' => $cekUser->id_users,
                         'unames' => $cekUser->username,
-                        'time_login' => $stay_log ? $time::now()->addHours(24) : $time::now()->addMinutes(120),
+                        // stay_log => hard 10 hour auto-logout window (checked on every request)
+                        'time_login' => $stay_log ? $time::now()->addHours(10) : $time::now()->addMinutes(120),
                         'time_since' => $time::now(),
+                        'login_at' => $time::now(),
+                        'stay_log' => $stay_log ? 1 : 0,
+                        // bind the session to the IP that logged in
+                        'bind_ip' => $this->getUserIP(),
                     ];
                     include('conn.php');
                     $sql = "SELECT `expiration_date` FROM `users` WHERE `username` = '".$usernam."' AND `expiration_date` > '".$time::now()."'";
@@ -234,7 +240,7 @@ class Auth extends BaseController
     public function logout()
     {
         if (session()->has('userid')) {
-            $unset = ['userid', 'unames', 'time_login', 'time_since'];
+            $unset = ['userid', 'unames', 'time_login', 'time_since', 'login_at', 'stay_log', 'bind_ip'];
             session()->remove($unset);
             session()->setFlashdata('msgSuccess', 'Logout successfuly.');
         }

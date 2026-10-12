@@ -16,7 +16,7 @@
     }
     body {
         background: var(--dark-color);
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         overflow-x: hidden;
         position: relative;
         min-height: 100vh;

@@ -61,12 +61,39 @@ class UserModel extends Model
             ->toJson(true);
     }
 
+    /**
+     * Resolve the visitor IP the same way the login screen shows it.
+     */
+    public function clientIp()
+    {
+        $clientIp  = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+        $forwardIp = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '';
+
+        if (filter_var($clientIp, FILTER_VALIDATE_IP)) {
+            return $clientIp;
+        }
+
+        if (filter_var($forwardIp, FILTER_VALIDATE_IP)) {
+            return $forwardIp;
+        }
+
+        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+    }
+
     public function checkAuthFilter()
     {
         $time = new \CodeIgniter\I18n\Time;
         $session = session();
         $time_ex = $session->time_login;
         if ($time::now()->isBefore($time_ex)) {
+            // ---- IP binding: the session only works from the IP that logged in ----
+            $bindIp = $session->bind_ip;
+            if (!empty($bindIp) && !hash_equals($bindIp, (string) $this->clientIp())) {
+                return $this->AuthSessionLogout(
+                    'Security: session IP changed (' . esc($this->clientIp()) . '). Please login again.'
+                );
+            }
+
             $userCek = $this->getUser($session->userid);
             if ($userCek->level > 3) {
                 $msg = 'Level account invalid!';
@@ -83,7 +110,7 @@ class UserModel extends Model
 
     public function AuthSessionLogout($msg = 'Session terminate')
     {
-        $list = ['userid', 'unames', 'time_login', 'time_since'];
+        $list = ['userid', 'unames', 'time_login', 'time_since', 'login_at', 'stay_log', 'bind_ip'];
         session()->remove($list);
         return redirect()->to('login')->with('msgDanger', $msg);
     }

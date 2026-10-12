@@ -33,7 +33,7 @@ include('mail.php');
         left: 0;
     }
     body {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         background-color: var(--dark-color);
         color: var(--light-color);
         overflow-x: hidden;

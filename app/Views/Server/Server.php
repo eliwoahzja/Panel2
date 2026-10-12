@@ -70,7 +70,7 @@ if (!isset($user)) {
     }
     body {
         background: var(--dark-color);
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         color: var(--light-color);
         min-height: 100vh; /* Ensure body takes full height for particle effect */
     }

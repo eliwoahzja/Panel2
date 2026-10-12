@@ -40,7 +40,8 @@
 
     /* ============ BRAND ============ */
     .navbar-brand.nb-brand {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         font-size: 1.45rem;
         font-weight: 800;
         letter-spacing: 1px;
@@ -74,7 +75,7 @@
     /* ============ NAV LINKS ============ */
     .nb-panel .nav-link {
         position: relative;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         font-weight: 600;
         font-size: .95rem;
         letter-spacing: .5px;
@@ -135,7 +136,7 @@
     }
 
     .nb-panel .dropdown-item {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         font-weight: 600;
         color: var(--nbr-ink) !important;
         padding: 0.55rem 1.4rem;

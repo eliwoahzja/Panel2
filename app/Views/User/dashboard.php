@@ -66,7 +66,7 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
     body {
         background: var(--dark-color);
         min-height: 100vh;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         overflow-x: hidden;
         position: relative;
     }

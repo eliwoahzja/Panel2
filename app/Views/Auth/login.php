@@ -87,12 +87,29 @@
                         <?php endif; ?>
                     </div>
 
+                    <!-- Session IP binding: this exact IP is locked to the login -->
+                    <div class="form-group shai-ip-group">
+                        <label class="form-label" for="current_ip">Current IP Address 📡</label>
+                        <div class="shai-ip-row">
+                            <input type="text" class="form-control shai-ip-input" id="current_ip"
+                                   value="<?= isset($user_ip) ? esc($user_ip) : '' ?>" readonly
+                                   data-ip="<?= isset($user_ip) ? esc($user_ip) : '' ?>">
+                            <button type="button" class="btn shai-ip-toggle" id="ipToggle"
+                                    aria-label="Hide your IP" title="Hide / show your IP">
+                                <i class="bi bi-eye-slash" id="ipToggleIcon"></i>
+                            </button>
+                        </div>
+                        <div class="shai-ip-hint">
+                            🔒 Your session will be locked to this IP for its whole lifetime.
+                        </div>
+                    </div>
+
                     <input type="hidden" name="ip" value="<?php echo $_SERVER['HTTP_USER_AGENT']; ?>">
 
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="stay_log" id="stay_log" value="yes">
-                        <label class="form-check-label" for="stay_log" data-bs-toggle="tooltip" data-bs-placement="top" title="Keep session more than 30 minutes">
-                            Stay logged in
+                        <label class="form-check-label" for="stay_log" data-bs-toggle="tooltip" data-bs-placement="top" title="Keep me signed in for up to 10 hours">
+                            Stay logged in <span class="shai-stay-tag">10H</span>
                         </label>
                     </div>
 
@@ -108,4 +125,40 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* stacked IP field on small screens */
+    @media (max-width: 480px) {
+        .shai-ip-row { flex-wrap: nowrap; }
+    }
+    .register-link {
+        display: inline-block;
+        margin-top: 18px;
+        font-weight: 600;
+    }
+</style>
+<script>
+    (function () {
+        var ipInput  = document.getElementById('current_ip');
+        var toggle   = document.getElementById('ipToggle');
+        var icon     = document.getElementById('ipToggleIcon');
+        if (!ipInput || !toggle) { return; }
+
+        var ip = ipInput.getAttribute('data-ip') || ipInput.value || '';
+        var masked = false;
+        var dots = function () { return new Array(ip.length + 1).join('\u2022'); };
+
+        toggle.addEventListener('click', function () {
+            masked = !masked;
+            ipInput.value = masked ? dots() : ip;
+            ipInput.classList.toggle('shai-masked', masked);
+            toggle.classList.toggle('is-masked', masked);
+            if (icon) {
+                icon.className = masked ? 'bi bi-eye' : 'bi bi-eye-slash';
+            }
+            toggle.setAttribute('aria-label', masked ? 'Show your IP' : 'Hide your IP');
+        });
+    })();
+</script>
+
 <?= $this->endSection() ?>

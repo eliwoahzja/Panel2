@@ -3,7 +3,7 @@
    Loaded globally via Layout/Starter. Skins Bootstrap widgets
    site-wide without touching view markup or app logic.
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
     --shai-bg:        #0a0612;
@@ -28,8 +28,14 @@
 html, body {
     background-color: var(--shai-bg) !important;
     color: var(--shai-ink);
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Chakra Petch', 'Segoe UI', sans-serif !important;
+    letter-spacing: .2px;
 }
+h1, h2, h3, h4, h5, h6,
+.navbar-brand, .shai-logo, .card-header, .btn {
+    font-family: 'Orbitron', 'Chakra Petch', sans-serif !important;
+}
+.mono, code, kbd, pre, .shai-ip-input { font-family: 'JetBrains Mono', monospace !important; }
 
 /* purple grid backdrop + vignette */
 body::before {
@@ -61,6 +67,33 @@ body.shai-scan::before {
     from { background-position: 0 0, 0 0; }
     to   { background-position: 0 680px, 0 680px; }
 }
+
+/* ============ LINKS (no more bootstrap blue) ============ */
+:root {
+    --bs-link-color: var(--shai-purple-hi);
+    --bs-link-hover-color: #ffffff;
+    --bs-link-color-rgb: 168, 85, 247;
+    --bs-link-hover-color-rgb: 255, 255, 255;
+}
+a, .link-primary, .register-link, .creator-info a {
+    color: var(--shai-purple-hi) !important;
+    text-decoration: none !important;
+    position: relative;
+    transition: color .15s ease, text-shadow .15s ease;
+}
+a:hover, .link-primary:hover, .register-link:hover, .creator-info a:hover {
+    color: #fff !important;
+    text-shadow: 0 0 12px rgba(168, 85, 247, .75);
+}
+/* animated underline for inline content links */
+a.shai-link, .register-link, .creator-info a {
+    border-bottom: 2px solid var(--shai-purple-dk);
+    padding-bottom: 1px;
+}
+a.shai-link:hover, .register-link:hover, .creator-info a:hover {
+    border-bottom-color: var(--shai-purple-hi);
+}
+a i, a .bi { color: inherit; }
 
 /* ============ TYPO HELPERS ============ */
 h1, h2, h3, h4, h5, h6 { font-weight: 700; }
@@ -320,3 +353,59 @@ footer.fixed-bottom {
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+
+/* ============ IP BINDING FIELD ============ */
+.shai-ip-group { margin-top: 4px; }
+
+.shai-ip-row { display: flex; gap: 10px; align-items: stretch; }
+
+.shai-ip-input {
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--shai-purple-hi) !important;
+    background: var(--shai-bg-2) !important;
+    cursor: default;
+}
+.shai-ip-input.shai-masked { letter-spacing: 3px; color: var(--shai-purple-dk) !important; }
+
+.shai-ip-toggle {
+    background: var(--shai-panel-2) !important;
+    border: 2px solid var(--shai-purple) !important;
+    color: var(--shai-purple-hi) !important;
+    box-shadow: var(--shai-shadow-xs);
+    padding: 0 14px;
+    flex: 0 0 auto;
+}
+.shai-ip-toggle:hover {
+    background: var(--shai-purple) !important;
+    color: #fff !important;
+    transform: translate(-1px, -1px) !important;
+    box-shadow: var(--shai-shadow) !important;
+}
+.shai-ip-toggle.is-masked { background: var(--shai-purple-dk) !important; color: #fff !important; }
+
+.shai-ip-hint {
+    margin-top: 8px;
+    font-size: .78rem;
+    color: var(--shai-ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    border-left: 3px solid var(--shai-purple-dk);
+    padding-left: 10px;
+}
+
+.shai-stay-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--shai-purple-hi);
+    border: 1px solid var(--shai-purple);
+    background: rgba(139, 61, 255, .12);
+}
+
+/* blinking caret feel on readonly ip field */
+.shai-ip-input:not(.shai-masked) { box-shadow: inset 0 0 18px rgba(139, 61, 255, .18); }

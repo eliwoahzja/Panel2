@@ -44,7 +44,7 @@ $row = $refcode;
     }
     body {
         background: var(--dark-color);
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Chakra Petch', 'Segoe UI', sans-serif;
         color: var(--light-color);
         min-height: 100vh;
     }
