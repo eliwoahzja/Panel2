@@ -48,18 +48,31 @@
         border-radius: 24px 24px 0 0;
         font-size: 1.5rem;
         letter-spacing: 1px;
-        padding: 1.5rem 2rem;
+        padding: 1.1rem 1.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
     }
-    .card-header .col-pt-1 {
+    .keys-head-title {
         display: flex;
         align-items: center;
+        gap: 10px;
+        min-width: 0;
     }
-    .card-header .col-pt-1 i {
-        margin-right: 15px;
-        font-size: 1.8rem;
+    .keys-head-title i {
+        font-size: 1.4rem;
+    }
+    .keys-head-title span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .keys-eye {
+        padding: .35rem .55rem;
+        border-radius: 10px;
+        line-height: 1;
     }
     .btn-secondary {
         background-color: rgba(255, 255, 255, 0.15) !important;
@@ -75,7 +88,7 @@
     }
 
     /* Dropdown Menu */
-    .navbar-nav .dropdown-menu {
+    .keys-head-menu .dropdown-menu {
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -84,13 +97,16 @@
         padding: 10px 0;
         min-width: 220px;
     }
-    .navbar-nav .dropdown-toggle {
+    .keys-head-menu .dropdown-toggle {
         color: var(--light-color) !important;
         font-weight: 500;
         transition: color 0.2s;
     }
-    .navbar-nav .dropdown-toggle:hover {
+    .keys-head-menu .dropdown-toggle:hover {
         color: var(--accent-color) !important;
+    }
+    .keys-head-menu .dropdown-toggle::after {
+        display: none;
     }
     .dropdown-menu .card-header {
         background: none;
@@ -289,15 +305,33 @@
         color: var(--accent-color) !important;
         border: 1px solid var(--accent-color) !important;
     }
+    .dataTables_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 18px;
+    }
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin: 0;
+        font-size: .85rem;
+    }
+    .dataTables_wrapper .dataTables_filter {
+        margin-left: auto;
+    }
+    .dataTables_wrapper > table {
+        flex: 1 0 100%;
+        margin-top: 6px;
+    }
     .dataTables_filter input,
     .dataTables_length select {
         background: rgba(255,255,255,0.1);
         border: 1.5px solid rgba(255,255,255,0.15);
         color: var(--light-color);
-        border-radius: 12px;
-        padding: 0.85rem 1.2rem;
+        border-radius: 8px;
+        padding: .45rem .7rem;
         transition: border 0.3s, background 0.3s, box-shadow 0.3s;
-        font-size: 1rem;
+        font-size: .85rem;
     }
     .dataTables_filter input:focus,
     .dataTables_length select:focus {
@@ -325,14 +359,16 @@
     @media (max-width: 575.98px) {
         .card { margin-top: 12px; border-radius: 16px; }
         .card-header { font-size: 1.02rem; padding: 12px 14px; border-radius: 16px 16px 0 0; }
-        .card-header .col-pt-1 i { font-size: 1.15rem; margin-right: 8px; }
+        .keys-head-title i { font-size: 1.15rem; }
         .card-header .btn-secondary { padding: .4rem .7rem; font-size: .8rem; }
         .card-body { padding: 14px 10px; }
         .table th, .table td { padding: .6rem .45rem; font-size: .85rem; }
         .keyBlur { font-size: .85em; padding: 2px 6px; letter-spacing: .5px; }
         .btn-action { padding: 6px 8px; margin: 0 2px; }
         .dataTables_wrapper .dataTables_length,
-        .dataTables_wrapper .dataTables_filter { font-size: .82rem; margin-bottom: .8rem; }
+        .dataTables_wrapper .dataTables_filter { font-size: .82rem; }
+        .dataTables_wrapper .dataTables_filter { flex: 1 0 100%; margin-left: 0; }
+        .dataTables_filter input { width: 100%; max-width: 100%; }
         .dataTables_filter input, .dataTables_length select {
             padding: .4rem .6rem;
             font-size: .82rem;
@@ -352,18 +388,16 @@
  <div class="col-lg-12">
  <div class="card shadow-sm">
  <div class="card-header">
- <div class="col-pt-1">
- <i class="bi bi-key"></i> Keys Registered
- <button class="btn btn-secondary btn-sm ms-3" id="blur-out" data-bs-toggle="tooltip" data-bs-placement="top" title="Eye Protect"><i class="bi bi-eye-slash"></i></button>
+ <div class="keys-head-title">
+ <i class="bi bi-key"></i>
+ <span>Keys Registered</span>
+ <button class="btn btn-secondary btn-sm keys-eye" id="blur-out" data-bs-toggle="tooltip" data-bs-placement="top" title="Eye Protect"><i class="bi bi-eye-slash"></i></button>
  </div>
- <div class="col text-end">
- <div class="float-right">
- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
- <li class="nav-item dropdown">
- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <div class="dropdown keys-head-menu">
+ <button class="btn btn-secondary btn-sm dropdown-toggle" id="keysMenuBtn" data-bs-toggle="dropdown" aria-expanded="false">
  <i class="bi bi-file-arrow-down-fill"></i> Open Menu
- </a>
- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
+ </button>
+ <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="keysMenuBtn">
  <li>
  <a class="dropdown-item" href="<?= site_url('keys/generate') ?>">
  <i class="bi bi-plus-circle" style="color: var(--primary-color);"></i> GENERATE KEY
@@ -382,9 +416,6 @@
  </a>
  </li>
  </ul>
- </li>
- </ul>
- </div>
  </div>
  </div>
  <div class="card-body">
