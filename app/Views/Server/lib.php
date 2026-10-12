@@ -48,10 +48,10 @@ window.location = ("<?= site_url($path) ?>");
 </script>
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
         --glass-background: rgba(255, 255, 255, 0.08);
         --glass-border: 1px solid rgba(255, 255, 255, 0.18);
@@ -88,7 +88,7 @@ window.location = ("<?= site_url($path) ?>");
         box-shadow: 0 16px 48px 0 rgba(31, 38, 135, 0.5);
     }
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important; /* Force gradient */
+        background: var(--primary-color) !important; /* Force gradient */
         color: var(--light-color) !important; /* Force light color */
         font-weight: 700;
         border-radius: 20px 20px 0 0;
@@ -134,7 +134,7 @@ window.location = ("<?= site_url($path) ?>");
     }
 
     .btn-gradient {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: #fff;
         border: none;
         border-radius: 12px;
@@ -158,7 +158,7 @@ window.location = ("<?= site_url($path) ?>");
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        background: var(--primary-color);
         transition: all 0.4s ease;
         z-index: -1;
     }
@@ -184,7 +184,7 @@ window.location = ("<?= site_url($path) ?>");
         cursor: pointer;
     }
     .input-group-text {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         border: none;
         border-radius: 12px 0 0 12px; /* Match input border radius */

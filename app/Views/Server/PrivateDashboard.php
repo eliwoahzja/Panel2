@@ -95,10 +95,10 @@ include(FCPATH . 'conn.php');
 <div id="particles-js"></div>
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
         --glass-background: rgba(255, 255, 255, 0.08);
         --glass-border: 1px solid rgba(255, 255, 255, 0.18);
@@ -135,7 +135,7 @@ include(FCPATH . 'conn.php');
         box-shadow: 0 16px 48px 0 rgba(31, 38, 135, 0.5);
     }
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        background: var(--primary-color) !important;
         color: var(--light-color) !important;
         font-weight: 700;
         border-radius: 20px 20px 0 0;
@@ -178,7 +178,7 @@ include(FCPATH . 'conn.php');
         border-bottom: none; /* Remove last border */
     }
     .list-group-item span.badge {
-        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        background: var(--primary-color);
         color: var(--light-color) !important;
         padding: 0.5em 0.8em;
         border-radius: 8px;

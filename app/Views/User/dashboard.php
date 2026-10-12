@@ -56,10 +56,10 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
 
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
     }
 
@@ -100,7 +100,7 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
     }
 
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         font-weight: 600;
         border-bottom: none;
@@ -169,7 +169,7 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
     }
 
     .table thead th {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         font-weight: 600;
         border: none !important;
@@ -214,7 +214,7 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
     }
 
     .btn {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         border: none;
         border-radius: 16px;
@@ -251,7 +251,7 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
         position: fixed;
         bottom: 70px;
         right: 40px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: white;
         width: 60px;
         height: 60px;
@@ -278,117 +278,117 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
 <div id="particles-js"></div>
 
 <div class="dashboard-container">
-    <div class="row">
-        <div class="col-lg-12">
-            <?= $this->include('Layout/msgStatus') ?>
-        </div>
+ <div class="row">
+ <div class="col-lg-12">
+ <?= $this->include('Layout/msgStatus') ?>
+ </div>
 
-        <!-- Expiration Timer Card -->
-        <div class="col-lg-8 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <i class="bi bi-clock"></i> 𝐄𝐱𝐩𝐫𝐚𝐭𝐢𝐨𝐧 𝐓𝐢𝐦𝐞𝐫
-                </div>
-                <div class="card-body">
-                    <div class="expiration-timer" id="exp"></div>
-                </div>
-            </div>
-        </div>
+ <!-- Expiration Timer Card -->
+ <div class="col-lg-8 mb-4">
+ <div class="card">
+ <div class="card-header">
+ <i class="bi bi-clock"></i> Expration Timer
+ </div>
+ <div class="card-body">
+ <div class="expiration-timer" id="exp"></div>
+ </div>
+ </div>
+ </div>
 
-        <!-- Stats Overview -->
-        <div class="col-lg-4 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <i class="bi bi-graph-up"></i> 𝐒𝐭𝐚𝐭𝐬 𝐎𝐯𝐞𝐫𝐯𝐢𝐞��
-                </div>
-                <div class="card-body">
-                    <div class="stats-card">
-                        <div class="stats-value"><?php echo $keycount['id_keys']; ?></div>
-                        <div class="stats-label">Total Keys</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-value"><?php echo $active['devices']; ?></div>
-                        <div class="stats-label">Active Keys</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-value"><?php echo $inactive['devices']; ?></div>
-                        <div class="stats-label">Inactive Keys</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+ <!-- Stats Overview -->
+ <div class="col-lg-4 mb-4">
+ <div class="card">
+ <div class="card-header">
+ <i class="bi bi-graph-up"></i> Stats Overvie��
+ </div>
+ <div class="card-body">
+ <div class="stats-card">
+ <div class="stats-value"><?php echo $keycount['id_keys']; ?></div>
+ <div class="stats-label">Total Keys</div>
+ </div>
+ <div class="stats-card">
+ <div class="stats-value"><?php echo $active['devices']; ?></div>
+ <div class="stats-label">Active Keys</div>
+ </div>
+ <div class="stats-card">
+ <div class="stats-value"><?php echo $inactive['devices']; ?></div>
+ <div class="stats-label">Inactive Keys</div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-        <!-- Usage Chart -->
-        <div class="col-lg-8 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <i class="bi bi-bar-chart"></i> 𝐊𝐞𝐲 𝐔𝐬𝐚𝐠𝐞 𝐀𝐧𝐚𝐥𝐲𝐬𝐢𝐬
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="usageChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+ <!-- Usage Chart -->
+ <div class="col-lg-8 mb-4">
+ <div class="card">
+ <div class="card-header">
+ <i class="bi bi-bar-chart"></i> Key Usage Analysis
+ </div>
+ <div class="card-body">
+ <div class="chart-container">
+ <canvas id="usageChart"></canvas>
+ </div>
+ </div>
+ </div>
+ </div>
 
-        <!-- History Table -->
-        <div class="col-lg-12 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <i class="bi bi-clock-history"></i> 𝐇𝐢𝐬𝐭𝐨𝐫𝐲
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover text-center">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Info</th>
-                                    <th>Key</th>
-                                    <th>Days</th>
-                                    <th>Devices</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($history as $h) : ?>
-                                    <?php $in = explode("|", $h->info) ?>
-                                    <tr>
-                                        <td><span class="badge">#3812<?= $h->id_history ?></span></td>
-                                        <td><?= $in[0] ?></td>
-                                        <td><span class="badge"><?= $in[1] ?>**</span></td>
-                                        <td><span class="badge"><?= $in[2] ?> Days</span></td>
-                                        <td><span class="badge"><?= $in[3] ?> Devices</span></td>
-                                        <td><i class="badge"><?= $time::parse($h->created_at)->humanize() ?></i></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?php if (($user->level == 2) || ($user->level == 3)) : ?>
-                        <div class="form-group mb-2 text-center">
-                            <button type="button" class="btn" onclick="deleteAllUserKeys()">
-                                <i class="bi bi-trash-fill"></i> Delete All History Records
-                            </button>
-                        </div>
-                        <?php endif; ?>
-                        <?php if($user->level == 1) : ?>
-                        <div class="form-group mb-2 text-center">
-                            <button type="button" class="btn btn-white" onclick="deleteAllUserKeyss()">
-                                <i class="bi bi-trash-fill"></i> Delete All History Records
-                            </button>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ <!-- History Table -->
+ <div class="col-lg-12 mb-4">
+ <div class="card">
+ <div class="card-header">
+ <i class="bi bi-clock-history"></i> History
+ </div>
+ <div class="card-body">
+ <div class="table-responsive">
+ <table class="table table-hover text-center">
+ <thead>
+ <tr>
+ <th>#</th>
+ <th>Info</th>
+ <th>Key</th>
+ <th>Days</th>
+ <th>Devices</th>
+ <th>Time</th>
+ </tr>
+ </thead>
+ <tbody>
+ <?php foreach ($history as $h) : ?>
+ <?php $in = explode("|", $h->info) ?>
+ <tr>
+ <td><span class="badge">#3812<?= $h->id_history ?></span></td>
+ <td><?= $in[0] ?></td>
+ <td><span class="badge"><?= $in[1] ?>**</span></td>
+ <td><span class="badge"><?= $in[2] ?> Days</span></td>
+ <td><span class="badge"><?= $in[3] ?> Devices</span></td>
+ <td><i class="badge"><?= $time::parse($h->created_at)->humanize() ?></i></td>
+ </tr>
+ <?php endforeach; ?>
+ </tbody>
+ </table>
+ <?php if (($user->level == 2) || ($user->level == 3)) : ?>
+ <div class="form-group mb-2 text-center">
+ <button type="button" class="btn" onclick="deleteAllUserKeys()">
+ <i class="bi bi-trash-fill"></i> Delete All History Records
+ </button>
+ </div>
+ <?php endif; ?>
+ <?php if($user->level == 1) : ?>
+ <div class="form-group mb-2 text-center">
+ <button type="button" class="btn btn-white" onclick="deleteAllUserKeyss()">
+ <i class="bi bi-trash-fill"></i> Delete All History Records
+ </button>
+ </div>
+ <?php endif; ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
 
 <!-- Floating Telegram Button -->
 <a href="https://t.me/" class="telegram-float" target="_blank">
-    <i class="fa-brands fa-telegram"></i>
+ <i class="fa-brands fa-telegram"></i>
 </a>
 
 <!-- Add Particles.js -->

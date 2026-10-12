@@ -5,10 +5,10 @@
 <?= $this->section('content') ?>
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
     }
 
@@ -40,7 +40,7 @@
     }
 
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         font-weight: 700;
         border-radius: 20px 20px 0 0;
@@ -75,7 +75,7 @@
     }
 
     .btn-dark {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         border: none;
         border-radius: 12px;
         padding: 0.5rem 1rem;
@@ -105,12 +105,12 @@
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        background: var(--primary-color) !important;
         border: none !important;
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        background: var(--primary-color) !important;
         border: none !important;
     }
 

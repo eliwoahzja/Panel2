@@ -4,10 +4,10 @@
 
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
         --glass-background: rgba(255, 255, 255, 0.05);
         --glass-border: 1px solid rgba(255, 255, 255, 0.1);
@@ -43,7 +43,7 @@
         box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
     }
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         font-weight: 600;
         border-radius: 24px 24px 0 0;
@@ -83,7 +83,7 @@
         text-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
     }
     .btn-outline-dark {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: #fff;
         border: none;
         border-radius: 16px;
@@ -96,7 +96,7 @@
         font-size: 1.05rem;
     }
     .btn-outline-dark:hover {
-        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        background: var(--primary-color);
         color: #fff;
         transform: translateY(-3px) scale(1.03);
         box-shadow: 0 12px 25px rgba(79, 70, 229, 0.4);
@@ -139,7 +139,7 @@
     }
     .key-popup-content .btn {
         margin-top: 1rem;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: #fff;
         border: none;
         border-radius: 16px;
@@ -179,92 +179,92 @@
 <div id="particles-js"></div>
 
 <div class="row justify-content-center">
-    <div class="col-lg-6">
-        <?= $this->include('Layout/msgStatus') ?>
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col pt-1">
-                        <i class="bi bi-key"></i> Create License
-                    </div>
-                    <div class="col text-end">
-                        <a class="btn btn-secondary btn-sm" href="<?= site_url('keys') ?>"><i class="bi bi-people"></i> View Keys</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <?= form_open() ?>
-                <div class="row">
-                    <div class="form-group col-lg-6 mb-3">
-                        <label for="game" class="form-label">Game</label>
-                        <?= form_dropdown(['class' => 'form-select', 'name' => 'game', 'id' => 'game'], $game, old('game') ?: '') ?>
-                        <?php if ($validation->hasError('game')) : ?>
-                            <small id="help-game" class="text-danger"><?= $validation->getError('game') ?></small>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-group col-lg-6 mb-3">
-                        <label for="max_devices" class="form-label">Max Devices</label>
-                        <input type="number" name="max_devices" id="max_devices" class="form-control" placeholder="1" value="<?= old('max_devices') ?: 1 ?>">
-                        <?php if ($validation->hasError('max_devices')) : ?>
-                            <small id="help-max_devices" class="text-danger"><?= $validation->getError('max_devices') ?></small>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="duration" class="form-label">Duration</label>
-                    <?= form_dropdown(['class' => 'form-select', 'name' => 'duration', 'id' => 'duration'], $duration, old('duration') ?: '') ?>
-                    <?php if ($validation->hasError('duration')) : ?>
-                        <small id="help-duration" class="text-danger"><?= $validation->getError('duration') ?></small>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" minlength="4" maxlength="16" value="" name="check" onchange="fupi(this)" id="check">
-                        <label class="form-check-label" for="check">Custom Key</label>
-                    </div>
-                </div>
-                
-                <div class="form-group mb-3" id="custom-key-group" style="display:none;">
-                    <label for="custom" id="cuslabel" class="form-label">Input Your Key</label>
-                    <input type="text" minlength="4" maxlength="16" name="cuslicense" class="form-control" id="custom" autocomplete="off">
-                </div>
+ <div class="col-lg-6">
+ <?= $this->include('Layout/msgStatus') ?>
+ <div class="card">
+ <div class="card-header">
+ <div class="row">
+ <div class="col pt-1">
+ <i class="bi bi-key"></i> Create License
+ </div>
+ <div class="col text-end">
+ <a class="btn btn-secondary btn-sm" href="<?= site_url('keys') ?>"><i class="bi bi-people"></i> View Keys</a>
+ </div>
+ </div>
+ </div>
+ <div class="card-body">
+ <?= form_open() ?>
+ <div class="row">
+ <div class="form-group col-lg-6 mb-3">
+ <label for="game" class="form-label">Game</label>
+ <?= form_dropdown(['class' => 'form-select', 'name' => 'game', 'id' => 'game'], $game, old('game') ?: '') ?>
+ <?php if ($validation->hasError('game')) : ?>
+ <small id="help-game" class="text-danger"><?= $validation->getError('game') ?></small>
+ <?php endif; ?>
+ </div>
+ <div class="form-group col-lg-6 mb-3">
+ <label for="max_devices" class="form-label">Max Devices</label>
+ <input type="number" name="max_devices" id="max_devices" class="form-control" placeholder="1" value="<?= old('max_devices') ?: 1 ?>">
+ <?php if ($validation->hasError('max_devices')) : ?>
+ <small id="help-max_devices" class="text-danger"><?= $validation->getError('max_devices') ?></small>
+ <?php endif; ?>
+ </div>
+ </div>
+ <div class="form-group mb-3">
+ <label for="duration" class="form-label">Duration</label>
+ <?= form_dropdown(['class' => 'form-select', 'name' => 'duration', 'id' => 'duration'], $duration, old('duration') ?: '') ?>
+ <?php if ($validation->hasError('duration')) : ?>
+ <small id="help-duration" class="text-danger"><?= $validation->getError('duration') ?></small>
+ <?php endif; ?>
+ </div>
+ <div class="form-group mb-3">
+ <div class="form-check">
+ <input class="form-check-input" type="checkbox" minlength="4" maxlength="16" value="" name="check" onchange="fupi(this)" id="check">
+ <label class="form-check-label" for="check">Custom Key</label>
+ </div>
+ </div>
+ 
+ <div class="form-group mb-3" id="custom-key-group" style="display:none;">
+ <label for="custom" id="cuslabel" class="form-label">Input Your Key</label>
+ <input type="text" minlength="4" maxlength="16" name="cuslicense" class="form-control" id="custom" autocomplete="off">
+ </div>
 
-                <div class="form-group mb-3" id="bulk-keys-group">
-                    <label for="hulala" id="labula" class="form-label">Bulk Keys</label>
-                    <select class="form-select" aria-label="Default select example" id="hulala" name="loopcount">
-                        <option value="1">1 Key</option>
-                        <option value="5">5 Keys</option>
-                        <option value="10">10 Keys</option>
-                        <option value="25">25 Keys</option>
-                        <option value="50">50 Keys</option>
-                        <option value="100">100 Keys</option>
-                    </select>
-                </div>
-                
-                <input type="hidden" id="textinput" name="custominput">
+ <div class="form-group mb-3" id="bulk-keys-group">
+ <label for="hulala" id="labula" class="form-label">Bulk Keys</label>
+ <select class="form-select" aria-label="Default select example" id="hulala" name="loopcount">
+ <option value="1">1 Key</option>
+ <option value="5">5 Keys</option>
+ <option value="10">10 Keys</option>
+ <option value="25">25 Keys</option>
+ <option value="50">50 Keys</option>
+ <option value="100">100 Keys</option>
+ </select>
+ </div>
+ 
+ <input type="hidden" id="textinput" name="custominput">
 
-                <div class="form-group mb-3">
-                    <label for="estimation" class="form-label">Estimation</label>
-                    <input type="text" id="estimation" class="form-control" placeholder="Your order will total" readonly>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-outline-dark">Generate</button>
-                </div>
-                <?= form_close() ?>
-            </div>
-        </div>
-    </div>
+ <div class="form-group mb-3">
+ <label for="estimation" class="form-label">Estimation</label>
+ <input type="text" id="estimation" class="form-control" placeholder="Your order will total" readonly>
+ </div>
+ <div class="form-group">
+ <button type="submit" class="btn btn-outline-dark">Generate</button>
+ </div>
+ <?= form_close() ?>
+ </div>
+ </div>
+ </div>
 </div>
 
 <?php if (session()->getFlashdata('user_key')) : ?>
 <div class="key-popup-modal" id="keyPopup" style="display:flex;">
-    <div class="key-popup-content">
-        <h4>🎉 Key Generated!</h4>
-        <div class="key-value" id="generatedKey"><?= session()->getFlashdata('user_key') ?></div>
-        <button class="btn btn-outline-dark" onclick="copyGeneratedKey()">Copy Key</button>
-        <button class="btn btn-secondary" onclick="closeKeyPopup()">Close</button>
-        <div id="copyMsg" style="margin-top:10px;color:var(--accent-color);font-weight:600;"></div>
-    </div>
+ <div class="key-popup-content">
+ <h4> Key Generated!</h4>
+ <div class="key-value" id="generatedKey"><?= session()->getFlashdata('user_key') ?></div>
+ <button class="btn btn-outline-dark" onclick="copyGeneratedKey()">Copy Key</button>
+ <button class="btn btn-secondary" onclick="closeKeyPopup()">Close</button>
+ <div id="copyMsg" style="margin-top:10px;color:var(--accent-color);font-weight:600;"></div>
+ </div>
 </div>
 <?php endif; ?>
 

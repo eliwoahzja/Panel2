@@ -19,7 +19,7 @@
     </div>
     <div class="col-lg-8 mb-3">
         <div class="card">
-            <div class="card-header text-white"style="background: linear-gradient(0.9turn, #7bfc77, #faee0c, #e877fc);">
+            <div class="card-header">
                 <div class="row">
                     <div class="col pt-1">
                         Key Information

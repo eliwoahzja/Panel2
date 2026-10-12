@@ -3,10 +3,10 @@
 <?= $this->section('content') ?>
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
     }
 
@@ -45,7 +45,7 @@
     }
 
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         font-weight: 700;
         border-radius: 20px 20px 0 0;
@@ -104,7 +104,7 @@
     }
 
     .btn-gradient {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: #fff;
         border: none;
         border-radius: 12px;
@@ -129,7 +129,7 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        background: var(--primary-color);
         transition: all 0.4s ease;
         z-index: -1;
     }
@@ -144,11 +144,11 @@
     }
 
     .btn-gradient-success {
-        background: linear-gradient(135deg, #28a745, #218838);
+        background: var(--shai-ok, #34d399);
     }
 
     .btn-gradient-success:hover {
-        background: linear-gradient(135deg, #218838, #28a745);
+        background: var(--shai-ok, #34d399);
     }
 
     .form-group {

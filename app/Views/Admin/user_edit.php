@@ -9,10 +9,10 @@ include('mail.php');
 <div id="particles-js"></div>
 <style>
     :root {
-        --primary-color: #4f46e5; /* Indigo 600 */
-        --secondary-color: #7c3aed; /* Violet 600 */
-        --accent-color: #06b6d4; /* Cyan 600 */
-        --dark-color: #0f172a; /* Slate 900 */
+        --primary-color: #a78bfa; /* Indigo 600 */
+        --secondary-color: #a78bfa; /* Violet 600 */
+        --accent-color: #a78bfa; /* Cyan 600 */
+        --dark-color: #0b0b0f; /* Slate 900 */
         --light-color: #f8fafc; /* Slate 50 */
         --glass-background: rgba(255, 255, 255, 0.08);
         --glass-border: 1px solid rgba(255, 255, 255, 0.18);
@@ -55,7 +55,7 @@ include('mail.php');
         box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.5);
     }
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        background: var(--primary-color) !important;
         color: var(--light-color) !important;
         font-weight: 700;
         border-radius: 20px 20px 0 0;
@@ -133,7 +133,7 @@ include('mail.php');
         color: var(--light-color);
     }
     .input-group-text {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 12px 0 0 12px;
@@ -155,7 +155,7 @@ include('mail.php');
         to { opacity: 1; transform: translateY(0); }
     }
     .btn-gradient {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: #fff;
         border: none;
         border-radius: 12px;
@@ -179,7 +179,7 @@ include('mail.php');
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        background: var(--primary-color);
         transition: all 0.4s ease;
         z-index: -1;
     }

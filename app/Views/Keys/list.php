@@ -3,10 +3,10 @@
 <?= $this->section('content') ?>
 <style>
     :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #06b6d4;
-        --dark-color: #0f172a;
+        --primary-color: #a78bfa;
+        --secondary-color: #a78bfa;
+        --accent-color: #a78bfa;
+        --dark-color: #0b0b0f;
         --light-color: #ffffff;
         --glass-background: rgba(255, 255, 255, 0.05);
         --glass-border: 1px solid rgba(255, 255, 255, 0.1);
@@ -42,7 +42,7 @@
         box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
     }
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         font-weight: 600;
         border-radius: 24px 24px 0 0;
@@ -111,7 +111,7 @@
         margin: 5px 10px;
     }
     .dropdown-item:hover {
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         color: var(--light-color);
         transform: translateX(5px);
     }
@@ -138,7 +138,7 @@
         background-color: transparent !important;
     }
     .table thead th {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: var(--primary-color);
         font-weight: 600;
         color: var(--light-color);
         text-transform: uppercase;
@@ -181,7 +181,7 @@
         color: var(--light-color);
     }
     .btn-copy {
-        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        background: var(--primary-color);
         color: #fff;
         border: none;
         border-radius: 8px;
@@ -192,7 +192,7 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     .btn-copy:hover {
-        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        background: var(--primary-color);
         transform: translateY(-2px) scale(1.05);
         box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
@@ -271,7 +271,7 @@
     }
     .dataTables_wrapper .dataTables_paginate .paginate_button.current,
     .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        background: var(--primary-color) !important;
         color: var(--light-color) !important;
         border-radius: 8px;
         border: none !important;
@@ -315,75 +315,75 @@
 <div id="particles-js"></div>
 
 <div class="row justify-content-center">
-    <div class="row">
-        <div class="col-lg-12">
-            <?= $this->include('Layout/msgStatus') ?>
-        </div>
-        <div class="col-lg-12">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <div class="col-pt-1">
-                        <i class="bi bi-key"></i> Keys Registered
-                        <button class="btn btn-secondary btn-sm ms-3" id="blur-out" data-bs-toggle="tooltip" data-bs-placement="top" title="Eye Protect"><i class="bi bi-eye-slash"></i></button>
-                    </div>
-                    <div class="col text-end">
-                        <div class="float-right">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-file-arrow-down-fill"></i> Open Menu
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
-                                        <li>
-                                            <a class="dropdown-item" href="<?= site_url('keys/generate') ?>">
-                                                <i class="bi bi-plus-circle" style="color: var(--primary-color);"></i> 𝐆𝐄𝐍𝐄𝐑𝐀𝐓𝐄 𝐊𝐄𝐘
-                                            </a>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li>
-                                            <a class="dropdown-item" href="<?= site_url('keys/deleteExp')  ?>">
-                                                <i class="bi bi-eraser" style="color: var(--secondary-color);"></i> 𝐃𝐄𝐋𝐄𝐓𝐄 𝐄𝐗𝐏𝐈𝐑𝐄 𝐊𝐄𝐘
-                                            </a>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li>
-                                            <a class="dropdown-item" href="<?= site_url('keys/deleteUnused')  ?>">
-                                                <i class="bi bi-box" style="color: var(--accent-color);"></i> 𝐃𝐄𝐋𝐄𝐓𝐄 𝐔𝐍-𝐔𝐒𝐄𝐃 𝐊𝐄𝐘
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <?php if ($keylist) : ?>
-                        <div class="table-responsive">
-                            <table id="datatable" class="table table-hover text-center" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Game</th>
-                                        <th>User Keys</th>
-                                        <th>Devices</th>
-                                        <th>Duration</th>
-                                        <th>Expired</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- DataTables will populate this tbody -->
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php else : ?>
-                        <p class="text-center">Nothing keys to show</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
+ <div class="row">
+ <div class="col-lg-12">
+ <?= $this->include('Layout/msgStatus') ?>
+ </div>
+ <div class="col-lg-12">
+ <div class="card shadow-sm">
+ <div class="card-header">
+ <div class="col-pt-1">
+ <i class="bi bi-key"></i> Keys Registered
+ <button class="btn btn-secondary btn-sm ms-3" id="blur-out" data-bs-toggle="tooltip" data-bs-placement="top" title="Eye Protect"><i class="bi bi-eye-slash"></i></button>
+ </div>
+ <div class="col text-end">
+ <div class="float-right">
+ <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+ <li class="nav-item dropdown">
+ <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <i class="bi bi-file-arrow-down-fill"></i> Open Menu
+ </a>
+ <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
+ <li>
+ <a class="dropdown-item" href="<?= site_url('keys/generate') ?>">
+ <i class="bi bi-plus-circle" style="color: var(--primary-color);"></i> GENERATE KEY
+ </a>
+ </li>
+ <li><hr class="dropdown-divider"></li>
+ <li>
+ <a class="dropdown-item" href="<?= site_url('keys/deleteExp')  ?>">
+ <i class="bi bi-eraser" style="color: var(--secondary-color);"></i> DELETE EXPIRE KEY
+ </a>
+ </li>
+ <li><hr class="dropdown-divider"></li>
+ <li>
+ <a class="dropdown-item" href="<?= site_url('keys/deleteUnused')  ?>">
+ <i class="bi bi-box" style="color: var(--accent-color);"></i> DELETE UN-USED KEY
+ </a>
+ </li>
+ </ul>
+ </li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ <div class="card-body">
+ <?php if ($keylist) : ?>
+ <div class="table-responsive">
+ <table id="datatable" class="table table-hover text-center" style="width:100%">
+ <thead>
+ <tr>
+ <th>#</th>
+ <th>Game</th>
+ <th>User Keys</th>
+ <th>Devices</th>
+ <th>Duration</th>
+ <th>Expired</th>
+ <th>Action</th>
+ </tr>
+ </thead>
+ <tbody>
+ <!-- DataTables will populate this tbody -->
+ </tbody>
+ </table>
+ </div>
+ <?php else : ?>
+ <p class="text-center">Nothing keys to show</p>
+ <?php endif; ?>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
 <?= $this->endSection() ?>
 
@@ -463,13 +463,13 @@
                     render: function(data, type, row, meta) {
                         var is_valid = (row.status == 'Active') ? "text-success" : "text-danger";
                         return `
-                            <div style="position:relative;display:inline-block;">
-                                <span class="${is_valid} keyBlur key-sensi" id="key-${row.id}">${(row.user_key ? row.user_key : '&mdash;')}</span>
-                                <button class="btn btn-copy btn-sm ms-1" onclick="copyKeyToClipboard('key-${row.id}', this)">
-                                    <i class="bi bi-clipboard"></i>
-                                </button>
-                                <span class="copy-tooltip" id="tooltip-key-${row.id}">Copied!</span>
-                            </div>
+ <div style="position:relative;display:inline-block;">
+ <span class="${is_valid} keyBlur key-sensi" id="key-${row.id}">${(row.user_key ? row.user_key : '&mdash;')}</span>
+ <button class="btn btn-copy btn-sm ms-1" onclick="copyKeyToClipboard('key-${row.id}', this)">
+ <i class="bi bi-clipboard"></i>
+ </button>
+ <span class="copy-tooltip" id="tooltip-key-${row.id}">Copied!</span>
+ </div>
                         `;
                     }
                 },
