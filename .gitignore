@@ -1,3 +1,8 @@
 node_modules
 .idea
 .editorconfig
+
+writable/session/*
+!writable/session/index.html
+writable/logs/*
+!writable/logs/index.html
