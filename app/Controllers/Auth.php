@@ -106,12 +106,10 @@ class Auth extends BaseController
                     $data = [
                         'userid' => $cekUser->id_users,
                         'unames' => $cekUser->username,
-                        // stay_log => hard 10 hour auto-logout window (checked on every request)
                         'time_login' => $stay_log ? $time::now()->addHours(10) : $time::now()->addMinutes(120),
                         'time_since' => $time::now(),
                         'login_at' => $time::now(),
                         'stay_log' => $stay_log ? 1 : 0,
-                        // bind the session to the IP that logged in
                         'bind_ip' => $this->getUserIP(),
                     ];
                     include('conn.php');
@@ -215,7 +213,6 @@ class Auth extends BaseController
                     $query1 = mysqli_query($conn, $sql1);
                     $levelRow = $query1 ? mysqli_fetch_assoc($query1) : null;
 
-                    // scalars only (previously the whole assoc row was passed through)
                     $period    = !empty($periodRow['acc_expiration']) ? $periodRow['acc_expiration'] : ($rCheck->acc_expiration ?? null);
                     $userLevel = isset($levelRow['level']) ? $levelRow['level'] : ($rCheck->level ?? 1);
                     $data_register = [

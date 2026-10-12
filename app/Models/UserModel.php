@@ -61,9 +61,6 @@ class UserModel extends Model
             ->toJson(true);
     }
 
-    /**
-     * Resolve the visitor IP the same way the login screen shows it.
-     */
     public function clientIp()
     {
         $clientIp  = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
@@ -86,7 +83,6 @@ class UserModel extends Model
         $session = session();
         $time_ex = $session->time_login;
         if ($time::now()->isBefore($time_ex)) {
-            // ---- IP binding: the session only works from the IP that logged in ----
             $bindIp = $session->bind_ip;
             if (!empty($bindIp) && !hash_equals($bindIp, (string) $this->clientIp())) {
                 return $this->AuthSessionLogout(

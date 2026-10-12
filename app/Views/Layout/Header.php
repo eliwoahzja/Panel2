@@ -6,7 +6,6 @@
         z-index: 1040;
     }
 
-    /* brand */
     .nb-brand {
         font-family: 'Orbitron', 'Inter', sans-serif;
         font-weight: 900;
@@ -27,7 +26,6 @@
         color: #fff !important;
     }
 
-    /* links */
     .nb-panel .nav-link {
         font-family: 'Inter', sans-serif;
         font-weight: 500;
@@ -53,7 +51,6 @@
         background: var(--shai-raised, #1a1a23);
     }
 
-    /* dropdown */
     .nb-panel .dropdown-menu {
         background: var(--shai-surface, #13131a);
         border: 1.5px solid var(--shai-line, #262630);
@@ -97,7 +94,6 @@
     .nb-panel .dropdown-item.text-danger:hover { background: rgba(244, 63, 94, .1); }
     .nb-panel .dropdown-divider { border-color: var(--shai-line, #262630); margin: 6px 0; }
 
-    /* toggler */
     .nb-panel .navbar-toggler {
         border: 1.5px solid var(--shai-line-2, #33333f);
         background: transparent;
@@ -111,7 +107,6 @@
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23a78bfa' stroke-width='2.5' stroke-linecap='square' d='M5 8h20M5 15h20M5 22h20'/%3e%3c/svg%3e");
     }
 
-    /* mobile drawer */
     @media (max-width: 767.98px) {
         .nb-panel .navbar-collapse {
             background: var(--shai-surface, #13131a);
@@ -126,8 +121,6 @@
         .nb-panel * { animation: none !important; transition: none !important; }
     }
 </style>
-
-
 
 <header>
     <nav class="navbar nb-panel navbar-expand-md navbar-dark py-0">
@@ -236,6 +229,19 @@
                             </li>
                         </ul>
                     </div>
+                <?php else : ?>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= site_url('login') ?>">
+                                <i class="bi bi-box-arrow-in-right"></i> Sign in
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= site_url('register') ?>">
+                                <i class="bi bi-person-plus"></i> Register
+                            </a>
+                        </li>
+                    </ul>
                 <?php endif; ?>
             </div>
         </div>
@@ -243,8 +249,7 @@
 </header>
 
 <script>
-    // Active state for current page
-    document.querySelectorAll('.nb-panel .nav-link').forEach(link => {
+    document.querySelectorAll('.nb-panel .nav-link').forEach(function (link) {
         if (link.href && link.href === window.location.href) {
             link.classList.add('nb-active');
         }

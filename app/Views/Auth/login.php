@@ -16,13 +16,19 @@
 <div class="shai-auth-wrap pt-5">
     <?= $this->include('Layout/msgStatus') ?>
 
-    <div class="login-container">
+    <div class="login-container shai-auth-card">
         <div class="shai-auth-head">
             <span class="shai-wordmark">SHAI<em>.</em>PANEL</span>
             <span class="shai-subtitle">sign in</span>
         </div>
 
         <div class="shai-auth-body">
+            <div class="shai-switch " role="tablist">
+                <a class="shai-switch-item is-active" href="<?= site_url('login') ?>">Sign in</a>
+                <a class="shai-switch-item " href="<?= site_url('register') ?>">Register</a>
+                <span class="shai-switch-thumb" aria-hidden="true"></span>
+            </div>
+
             <h1 class="shai-title mb-4">Welcome back</h1>
 
             <?= form_open() ?>
@@ -97,4 +103,21 @@
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (el) { return new bootstrap.Tooltip(el); });
 </script>
+
+<script>
+    (function () {
+        var card = document.querySelector('.shai-auth-card');
+        if (!card) { return; }
+        document.querySelectorAll('.shai-switch-item, .shai-alt-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || link.target === '_blank') { return; }
+                e.preventDefault();
+                var goesRight = link.getAttribute('href').indexOf('register') !== -1;
+                card.classList.add(goesRight ? 'is-leaving-right' : 'is-leaving-left');
+                setTimeout(function () { window.location.href = link.getAttribute('href'); }, 190);
+            });
+        });
+    })();
+</script>
+
 <?= $this->endSection() ?>
