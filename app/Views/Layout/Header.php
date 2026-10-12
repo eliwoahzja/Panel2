@@ -213,7 +213,7 @@
                                     <?php endif; ?>
                                     
                                     <li>
-                                        <a class="dropdown-item" href="https://t.me/betterknownaskruger">
+                                        <a class="dropdown-item" href="https://t.me/Shaiaintshyy" target="_blank" rel="noopener">
                                             <i class="bi bi-telegram"></i> Get Support
                                         </a>
                                     </li>

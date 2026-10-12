@@ -32,24 +32,38 @@ class Connect extends BaseController
     {
         if ($this->request->getPost()) {
             return $this->index_post();
-        } else {
-            $nata = [
-                "web_info" => [
-                    "_client" => BASE_NAME_FULL,
-                    "license" => "5G7B3F8J2H
-",
-                    "version" => "3.0.0",
-                ],
-                "web__dev" => [
-                    "author" => "Zia Dev",
-                    "Channel" => "https://t.me/christdmm",
-                    "Group" => "https://t.me/christdmm"
-                ],
-            ];
-            
-            
-            return $this->response->setJSON($nata);
         }
+
+        $nata = [
+            "web_info" => [
+                "_client" => BASE_NAME_FULL,
+                "license" => "5G7B3F8J2H\n",
+                "version" => "3.0.0",
+            ],
+            "web__dev" => [
+                "author" => "Zia Dev",
+                "Channel" => "https://t.me/Shaiaintshyy",
+                "Group" => "https://t.me/Shaiaintshyy"
+            ],
+        ];
+
+        if ($this->clientWantsHtml()) {
+            return view('Connect/endpoint', [
+                'info'        => $nata,
+                'maintenance' => $this->maintenance,
+            ]);
+        }
+
+        return $this->response->setJSON($nata);
+    }
+
+    protected function clientWantsHtml()
+    {
+        $accept = $this->request->getHeaderLine('Accept');
+
+        return $accept !== ''
+            && strpos($accept, 'text/html') !== false
+            && strpos($accept, 'application/json') === false;
     }
 
     public function index_post()

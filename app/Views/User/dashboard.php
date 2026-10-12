@@ -247,31 +247,6 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
         padding: 1rem;
     }
 
-    .telegram-float {
-        position: fixed;
-        bottom: 70px;
-        right: 40px;
-        background: var(--primary-color);
-        color: white;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        text-align: center;
-        font-size: 30px;
-        box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .telegram-float:hover {
-        transform: scale(1.1) translateY(-5px);
-        box-shadow: 0 20px 40px rgba(79, 70, 229, 0.4);
-    }
 </style>
 
 <!-- Particles.js Container -->
@@ -385,11 +360,6 @@ $getDateTime = date("F d, Y H:i:s", $dateTime);
  </div>
  </div>
 </div>
-
-<!-- Floating Telegram Button -->
-<a href="https://t.me/" class="telegram-float" target="_blank">
- <i class="fa-brands fa-telegram"></i>
-</a>
 
 <!-- Add Particles.js -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>

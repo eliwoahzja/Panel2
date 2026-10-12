@@ -110,6 +110,11 @@
             <!-- End of content -->
         </div>
     </main>
+    <a class="shai-tg" href="https://t.me/Shaiaintshyy" target="_blank" rel="noopener" aria-label="Contact on Telegram">
+        <i class="bi bi-telegram"></i>
+        <span class="shai-tg-label">Telegram</span>
+    </a>
+
     <footer class="fixed-bottom nb-footer">
         <div class="container py-2">
             <small>&copy; <?= date('Y') ?> <?= BASE_NAME ?></small>
@@ -150,6 +155,57 @@
 
     <?= $this->renderSection('js') ?>
 
+
+<style>
+    .shai-tg {
+        position: fixed;
+        right: 18px;
+        bottom: 58px;
+        z-index: 1045;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        height: 46px;
+        padding: 0 16px 0 14px;
+        background: var(--shai-accent);
+        border: 1.5px solid var(--shai-accent);
+        color: #fff !important;
+        font-size: .85rem;
+        font-weight: 600;
+        box-shadow: 3px 3px 0 0 var(--shai-purple-dk, #5b21b6);
+        transition: transform .12s ease, box-shadow .12s ease, background .15s ease;
+        animation: shai-tg-in .5s cubic-bezier(.2, .8, .3, 1) both .6s;
+    }
+    .shai-tg i { font-size: 1.1rem; }
+    .shai-tg-label { letter-spacing: .02em; }
+    .shai-tg:hover {
+        background: var(--shai-accent-2);
+        color: #12121a !important;
+        transform: translate(-1px, -1px);
+        box-shadow: 5px 5px 0 0 var(--shai-accent);
+    }
+    .shai-tg::before {
+        content: '';
+        position: absolute;
+        inset: -1.5px;
+        border: 1.5px solid var(--shai-accent);
+        animation: shai-tg-ring 2.4s ease-out infinite;
+        pointer-events: none;
+    }
+    @keyframes shai-tg-ring {
+        0%   { opacity: .7; transform: scale(1); }
+        70%  { opacity: 0; transform: scale(1.35); }
+        100% { opacity: 0; transform: scale(1.35); }
+    }
+    @keyframes shai-tg-in {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: none; }
+    }
+    @media (max-width: 575.98px) {
+        .shai-tg { padding: 0 13px; }
+        .shai-tg-label { display: none; }
+    }
+</style>
 </body>
 
 </html>
