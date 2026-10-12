@@ -34,7 +34,9 @@
             <?= form_open() ?>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Your username" required minlength="4">
+                <div class="shai-field">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Your username" required minlength="4">
+                </div>
                 <?php if ($validation->hasError('username')) : ?>
                     <div class="error-message"><?= $validation->getError('username') ?></div>
                 <?php endif; ?>
@@ -42,7 +44,12 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Your password" required minlength="6">
+                <div class="shai-field shai-pw">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Your password" required minlength="6">
+                    <button type="button" class="shai-pw-toggle" data-target="password" aria-label="Show password">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
                 <?php if ($validation->hasError('password')) : ?>
                     <div class="error-message"><?= $validation->getError('password') ?></div>
                 <?php endif; ?>
@@ -50,7 +57,7 @@
 
             <div class="form-group">
                 <label for="current_ip">Your IP address</label>
-                <div class="shai-ip-row">
+                <div class="shai-ip-row shai-field">
                     <input type="text" class="form-control shai-ip-input" id="current_ip"
                            value="<?= isset($user_ip) ? esc($user_ip) : '' ?>" readonly
                            data-ip="<?= isset($user_ip) ? esc($user_ip) : '' ?>">
@@ -99,6 +106,18 @@
             toggle.setAttribute('aria-label', masked ? 'Show your IP address' : 'Hide your IP address');
         });
     })();
+
+    document.querySelectorAll('.shai-pw-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var input = document.getElementById(btn.getAttribute('data-target'));
+            if (!input) { return; }
+            var show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            btn.classList.toggle('is-on', show);
+            btn.querySelector('i').className = show ? 'bi bi-eye-slash' : 'bi bi-eye';
+            btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+    });
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (el) { return new bootstrap.Tooltip(el); });

@@ -357,3 +357,115 @@ footer.fixed-bottom { background: var(--shai-bg) !important; border-top: var(--s
 .shai-auth-card.is-leaving-right  { animation: shai-card-out-right .2s ease forwards; }
 @keyframes shai-card-out-left  { to { opacity: 0; transform: translateX(-26px); } }
 @keyframes shai-card-out-right { to { opacity: 0; transform: translateX(26px); } }
+
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, .16) 50%, transparent 65%);
+    transform: translateX(-130%);
+    transition: transform .55s ease;
+    pointer-events: none;
+}
+.btn:hover::after { transform: translateX(130%); }
+
+.shai-field { position: relative; }
+.shai-field::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    height: 2px; width: 0;
+    background: var(--shai-accent);
+    transition: width .28s cubic-bezier(.2, .8, .3, 1);
+    pointer-events: none;
+}
+.shai-field:focus-within::after { width: 100%; }
+.form-group:focus-within .form-label { color: var(--shai-accent-2) !important; }
+
+.shai-pw { display: block; }
+.shai-pw input { padding-right: 54px !important; }
+.shai-pw-toggle {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    border-left: 1.5px solid var(--shai-line) !important;
+    color: var(--shai-dim) !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    cursor: pointer;
+    transition: color .15s ease, background .15s ease;
+}
+.shai-pw-toggle:hover { color: var(--shai-accent-2) !important; background: var(--shai-raised) !important; }
+.shai-pw-toggle i { font-size: 1rem; }
+.shai-pw-toggle.is-on { color: var(--shai-accent-2) !important; }
+
+.shai-auth-body > * { animation: shai-in .34s cubic-bezier(.2, .8, .3, 1) both; }
+.shai-auth-body > *:nth-child(1) { animation-delay: .01s; }
+.shai-auth-body > *:nth-child(2) { animation-delay: .04s; }
+.shai-auth-body > *:nth-child(3) { animation-delay: .07s; }
+.shai-auth-body > *:nth-child(4) { animation-delay: .1s; }
+.shai-auth-body > *:nth-child(5) { animation-delay: .13s; }
+.shai-auth-body > *:nth-child(6) { animation-delay: .16s; }
+.shai-auth-body > *:nth-child(7) { animation-delay: .19s; }
+.shai-auth-body > *:nth-child(8) { animation-delay: .22s; }
+.shai-auth-body > *:nth-child(9) { animation-delay: .25s; }
+.shai-auth-body > *:nth-child(10) { animation-delay: .28s; }
+
+.shai-bar > div {
+    background-image: repeating-linear-gradient(-45deg, var(--shai-accent) 0 6px, var(--shai-accent-2) 6px 12px);
+    background-size: 24px 100%;
+    animation: shai-load 1s ease forwards, shai-stripes .55s linear infinite;
+}
+@keyframes shai-stripes { to { background-position: 24px 0; } }
+
+.nb-dot { animation: shai-pulse 1.8s ease-in-out infinite; }
+@keyframes shai-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .4; transform: scale(.8); }
+}
+
+.nb-brand i { animation: shai-brand 3.4s ease-in-out infinite; }
+@keyframes shai-brand {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1px) rotate(90deg); }
+}
+
+.custom-alert { position: relative; overflow: hidden; }
+.custom-alert::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--shai-accent);
+    transform-origin: top;
+    animation: shai-alert-grow .4s ease both;
+}
+.custom-alert.danger::before  { background: var(--shai-danger); }
+.custom-alert.success::before { background: var(--shai-ok); }
+.custom-alert.warning::before { background: #fbbf24; }
+@keyframes shai-alert-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+#shai-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--shai-accent);
+    z-index: 2000;
+    opacity: 0;
+    transition: width .35s ease, opacity .25s ease;
+}
+#shai-progress.on { opacity: 1; width: 72%; }
+#shai-progress.done { width: 100%; opacity: 0; transition: width .2s ease, opacity .3s ease .05s; }
+
+.table tbody tr { transition: background .12s ease, transform .12s ease; }
+.table-hover > tbody > tr:hover > * { transform: none; }
+
+.dropdown-menu { animation: shai-drop-in .18s cubic-bezier(.2, .8, .3, 1) both; }
+@keyframes shai-drop-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }

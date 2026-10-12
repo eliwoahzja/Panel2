@@ -98,6 +98,7 @@
         }
     </style>
 <body>
+    <div id="shai-progress" aria-hidden="true"></div>
     <!-- Start menu -->
     <?= $this->include('Layout/Header') ?>
     <!-- End of menu -->
@@ -120,6 +121,33 @@
     <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.0/sweetalert2.all.min.js" integrity="sha512-0UUEaq/z58JSHpPgPv8bvdhHFRswZzxJUT9y+Kld5janc9EWgGEVGfWV1hXvIvAJ8MmsR5d4XV9lsuA90xXqUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script -->
 
     <?= script_tag('assets/js/natacode.js') ?>
+
+    <script>
+        (function () {
+            var bar = document.getElementById('shai-progress');
+            if (!bar) { return; }
+
+            window.addEventListener('pageshow', function () {
+                bar.className = 'done';
+                setTimeout(function () { bar.className = ''; }, 320);
+            });
+
+            function start() {
+                bar.className = 'on';
+            }
+
+            document.addEventListener('click', function (e) {
+                var a = e.target.closest ? e.target.closest('a') : null;
+                if (!a || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') { return; }
+                var href = a.getAttribute('href') || '';
+                if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) { return; }
+                if (a.host && a.host !== window.location.host) { return; }
+                start();
+            });
+
+            document.addEventListener('submit', function () { start(); }, true);
+        })();
+    </script>
 
     <?= $this->renderSection('js') ?>
 

@@ -220,11 +220,15 @@ class Auth extends BaseController
                         'username' => $userna,
                         'fullname' => $fullname,
                         'level' => $userLevel,
+                        'status' => 1,
                         'password' => $hashPassword,
                         'saldo' => $rCheck->set_saldo ?: 0,
                         'uplink' => $rCheck->created_by,
                         'user_ip' => $ipaddress,
-                        'expiration_date' => $period
+                        'expiration_date' => $period,
+                        'reset_link_token' => '',
+                        'exp_date' => '',
+                        'logged_in' => 0
                     ];
                     $ids = $this->userModel->insert($data_register, true);
                     if ($ids) {
