@@ -338,11 +338,44 @@ all fatal for the client.
 | file | change |
 |------|--------|
 | `app/Common.php` | new `db_query()` helper — runs a query and returns `false` instead of letting a mysqli error escape |
-| `app/Controllers/Connect.php` | connection resolved from `ROOTPATH . 'conn.php'` (works from the repo root *and* from `public/`); every lookup goes through `fetchRow()` → `db_query()`, so a missing table degrades to a default instead of a 500; mod name read from `modname` with a `mod_settings` fallback and a `BASE_NAME_FULL` last resort; `token` always a string, `rng` always an int, `EXP` always a string; failures answer `{"status": false, "reason": "…", "data": {…}}` so a client that reads `data` unconditionally never hits a type error; maintenance answers `status: false` + the operator's message; the model calls are wrapped so a missing `keys_code` table answers "Panel database unavailable" instead of a 500 |
+| `app/Controllers/Connect.php` | connection resolved from `ROOTPATH . 'conn.php'` (works from the repo root *and* from `public/`); every lookup goes through `fetchRow()` → `db_query()`, so a missing table degrades to a default instead of a 500; mod name read from `modname` with a `mod_settings` fallback and a `BASE_NAME_FULL` last resort; `token` always a string, `rng` always an int, `EXP` always a string; failures answer `{"status": false, "reason": "…", "data": {…}}` so a client that reads `data` unconditionally never hits a type error; maintenance answers `status: false` + the operator's message; the model calls are wrapped so a missing `keys_code` table answers "Panel database unavailable" instead of a 500; a new `databasesMatch()` guard reports a configuration mismatch instead of a bogus "Incorrect Key" |
 | `app/Views/Server/Server.php` | the settings page uses `db_query()` as well, so a missing `modname`/`mod_settings` table can no longer 500 the admin screen |
 | `sql/xyto-update.sql` | creates `modname` *and* keeps `mod_settings` in sync; converts `keys_code.id_keys` to `AUTO_INCREMENT` when an upstream dump left it as a plain INT (CodeIgniter reads the id of a new key from `insert_id()`; without it every generated key collides on id 0) |
 | `public/conn.php` | shim so `FCPATH . 'conn.php'` resolves when the document root is `public/` |
 | `tools/connect_client_sim.py` | simulator of the client's `Login()` that reproduces nlohmann's strictness, used to verify the endpoint |
+| `tools/connect_scenarios.sh` | the 14 scenarios as a re-runnable harness (`PANEL_URL=… bash tools/connect_scenarios.sh`) |
+
+#### The panel has two database configurations
+
+`conn.php` (raw mysqli) and the CodeIgniter group in `.env`
+(`database.default.*`, used by every model) are two independent copies of the same
+credentials. When they drift apart — which happens as soon as only one of the two is
+edited after a host migration — the licence is looked up in the `.env` database while
+the mod name, the feature switches and the floating text are read from the `conn.php`
+database. The result is a *valid* key answered with **"Incorrect Key"**, which is the
+single most misleading failure this panel can produce.
+
+`Connect::databasesMatch()` compares `select database()` on the raw connection with
+the CodeIgniter database name and answers
+
+```
+"Panel database configuration mismatch: conn.php and .env point at different databases."
+```
+
+instead of pretending the key is wrong.
+
+#### The chr15 panel (`chrispanelsrc`) is not a different endpoint
+
+`eliwoahzja/chrispanelsrc` is the panel this one was derived from. Its
+`app/Controllers/Connect.php` is the *same* code with the `@Christdmm` branding: it
+queries the same `modname` table, uses the same `$staticWords` secret and answers the
+same fields, so the client contract is identical. Switching panels would therefore
+**not** have fixed a "the key is right but it does not work" report.
+
+The only relevant difference is the schema: `chris.sql` (the chr15 dump) creates a
+`modname` table and gives `keys_code.id_keys` an `AUTO_INCREMENT`, while this panel's
+`sql/xyto-update.sql` had renamed the table to `mod_settings` — that rename is what
+made the endpoint 500. The fixed panel was verified against **both** schemas.
 
 **Verified** with the simulator against both deployment layouts (document root = repo root and
 document root = `public/`):
@@ -359,6 +392,11 @@ document root = `public/`):
 | `modname` + `mod_settings` missing | `LOGIN OK` (no 500) |
 | `Feature` / `_ftext` missing | `LOGIN OK` (no 500) |
 | `keys_code` missing | `LOGIN FAILED` — "Panel database unavailable", no 500 |
+| `conn.php` and `.env` point at different databases | `LOGIN FAILED` — "Panel database configuration mismatch", not a bogus "Incorrect Key" |
+
+The panel was additionally verified against the **chr15 schema** (`chris.sql` imported
+into a fresh database): with both database configurations pointing at it, the same
+scenarios pass.
 
 ### 6.5 Admin surfaces
 

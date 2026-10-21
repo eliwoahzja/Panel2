@@ -80,6 +80,32 @@ class Connect extends BaseController
     }
 
     /**
+     * The panel keeps two database configurations: conn.php (raw mysqli)
+     * and the CodeIgniter group in .env, which the models use. When they
+     * point at different databases the licence is looked up in one of them
+     * while the mod name is read from the other, and the client is told the
+     * key is wrong even though it is perfectly valid.
+     */
+    protected function databasesMatch(\mysqli $conn): bool
+    {
+        $result = db_query($conn, 'select database() as db');
+        $row    = $result ? mysqli_fetch_assoc($result) : null;
+
+        if (! $row || empty($row['db'])) {
+            // The connection could not tell us anything - do not block the login.
+            return true;
+        }
+
+        try {
+            $ciDatabase = (string) \Config\Database::connect()->getDatabase();
+        } catch (\Throwable $e) {
+            return true;
+        }
+
+        return $ciDatabase === '' || $ciDatabase === $row['db'];
+    }
+
+    /**
      * The mod name lives in `modname`; installs created from the bundled
      * SQL script may still keep it in the legacy `mod_settings` table.
      */
@@ -203,6 +229,10 @@ class Connect extends BaseController
 
         if ($conn === null) {
             return $this->fail('Panel database unavailable, try again later. Contact: @Christdmm');
+        }
+
+        if (! $this->databasesMatch($conn)) {
+            return $this->fail('Panel database configuration mismatch: conn.php and .env point at different databases. Contact: @Christdmm');
         }
 
         $isMT = $this->maintenance;
