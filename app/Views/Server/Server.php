@@ -2,27 +2,39 @@
 include(FCPATH . 'conn.php');
 include('mail.php');
 
+// db_query() never throws: a missing table must not turn the settings
+// page into a 500 error page.
+
 // for maintainece mode
 $sql1 ="select * from onoff where id=1";
-$result1 = mysqli_query($conn, $sql1);
-$userDetails1 = mysqli_fetch_assoc($result1);
+$result1 = db_query($conn, $sql1);
+$userDetails1 = $result1 ? mysqli_fetch_assoc($result1) : ['status' => 'off', 'myinput' => ''];
 
 // for ftext and status
 $sql2 ="select * from _ftext where id=1";
-$result2 = mysqli_query($conn, $sql2);
-$userDetails2 = mysqli_fetch_assoc($result2);
+$result2 = db_query($conn, $sql2);
+$userDetails2 = $result2 ? mysqli_fetch_assoc($result2) : ['_status' => 'Safe', '_ftext' => ''];
 
 // for Features Status
 $sql3 = "SELECT * FROM Feature WHERE id=1";
-$result3 = mysqli_query($conn, $sql3);
-$ModFeatureStatus = mysqli_fetch_assoc($result3);
+$result3 = db_query($conn, $sql3);
+$ModFeatureStatus = $result3 ? mysqli_fetch_assoc($result3) : [];
 
-// For Mod Name - Assuming 'mod_settings' table or similar for $row['modname']
-// *** IMPORTANT: Is line mein 'YOUR_ACTUAL_TABLE_NAME' ko apne database ke sahi table name se replace karein jismein 'modname' store hota hai! ***
-// It seems from your last message that 'mod_settings' was the correct table name.
-$sql_modname = "SELECT modname FROM mod_settings WHERE id=1";
-//$result_modname = mysqli_query($conn, $sql_modname);
-//$row = mysqli_fetch_assoc($result_modname);
+// For Mod Name - stored in `modname`; installs created from the bundled SQL
+// script may still keep it in the legacy `mod_settings` table.
+$row = null;
+$sql_modname = "SELECT modname FROM modname WHERE id=1";
+$result_modname = db_query($conn, $sql_modname);
+if ($result_modname) {
+    $row = mysqli_fetch_assoc($result_modname);
+}
+if (!$row) {
+    $sql_modname = "SELECT modname FROM mod_settings WHERE id=1";
+    $result_modname = db_query($conn, $sql_modname);
+    if ($result_modname) {
+        $row = mysqli_fetch_assoc($result_modname);
+    }
+}
 
 // Fallback for $row if the query above doesn't yield a result (prevents errors if no data)
 if (!$row) {

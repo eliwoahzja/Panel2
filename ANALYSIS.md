@@ -278,6 +278,88 @@ it is in the repository and in every client build. The `token` is therefore not 
 challenge — it is a checksum the client can compute itself. It only proves "the client knows the
 algorithm", which it always does.
 
+### 6.4.1 The client contract — and why a *valid* key could still be rejected
+
+The Android client that redeems the licence is `oonalang/VARIANT4`
+(`src/main/jni/Includes/Jni_Stuff.h`, function `Login()`). It is the consumer of `/connect`,
+and it is **strict about JSON types**:
+
+```cpp
+sprintf(data, "game=CODMGR&user_key=%s&serial=%s", user_key, UUID.c_str());
+curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+...
+json result = json::parse(chunk.memory);
+if (result["status"] == true) {
+    std::string token = result["data"]["token"].get<std::string>();   // must be a string
+    time_t       rng   = result["data"]["rng"].get<time_t>();         // must be a number
+    EXP                = result["data"]["EXP"].get<std::string>();   // must be a string
+    if (rng + 30 > time(0)) {
+        auth = "CODMGR-" + user_key + "-" + UUID + "-Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz9E";
+        bValid = (token == CalcMD5(auth));
+    }
+} else {
+    errMsg = result["reason"].get<std::string>();                     // must be a string
+}
+```
+
+* the endpoint URL is **hardcoded and obfuscated** (`oxorany("https://natachizz.x10.mx/connect")`) —
+  pointing the client at another panel means editing that string and rebuilding the APK;
+* `nlohmann::json` throws on a type mismatch, and the client catches it with
+  `catch (json::exception &e)`, so the user is shown the **raw response body** as the error text;
+* the token is `md5("<game>-<key>-<serial>-Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz9E")` — the same
+  secret string is hardcoded in the panel (`$staticWords`) and in every client build.
+
+**Three independent defects made a perfectly valid key fail**, all of them in `/connect`:
+
+1. **HTTP 500 on every successful handshake.** `Connect::index_post()` read the mod name from
+   the `modname` table, but the panel's own schema (`sql/xyto-update.sql`) creates
+   **`mod_settings`** — and CI4's MySQLi driver sets
+   `mysqli_report(MYSQLI_REPORT_ALL & ~MYSQLI_REPORT_INDEX)`
+   (`vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:95`) for the whole
+   request as soon as it opens its own connection. The raw `mysqli_query()` for the missing
+   table therefore **throws a `mysqli_sql_exception`**, the request dies with a 500 and a JSON
+   error object, the client finds neither `status` nor `reason`, nlohmann throws, and the login
+   fails. A missing *optional* table rejected a valid licence.
+2. **`instanceof mysqli` never matched inside a namespace.** In `namespace App\Controllers` an
+   unqualified class name does **not** fall back to the global namespace (functions do, classes
+   do not), so `$conn instanceof mysqli` was always `false` and the controller answered
+   "Panel database unavailable" with a perfectly healthy database. The same trap applies to the
+   `?mysqli` parameter type hints.
+3. **Maintenance mode returned `status: true` with no `data` block.** The client reads
+   `result["data"]["token"]` as soon as `status == true`, so it died with a nlohmann type error
+   instead of showing the operator's maintenance message.
+
+On top of that the payload itself was not type-safe: `EXP` came from a query that returns
+`null` when the row is missing, and `modname` / `mod_status` / `credit` could be `null` as well —
+all fatal for the client.
+
+**The fix (this branch)**
+
+| file | change |
+|------|--------|
+| `app/Common.php` | new `db_query()` helper — runs a query and returns `false` instead of letting a mysqli error escape |
+| `app/Controllers/Connect.php` | connection resolved from `ROOTPATH . 'conn.php'` (works from the repo root *and* from `public/`); every lookup goes through `fetchRow()` → `db_query()`, so a missing table degrades to a default instead of a 500; mod name read from `modname` with a `mod_settings` fallback and a `BASE_NAME_FULL` last resort; `token` always a string, `rng` always an int, `EXP` always a string; failures answer `{"status": false, "reason": "…", "data": {…}}` so a client that reads `data` unconditionally never hits a type error; maintenance answers `status: false` + the operator's message; the model calls are wrapped so a missing `keys_code` table answers "Panel database unavailable" instead of a 500 |
+| `app/Views/Server/Server.php` | the settings page uses `db_query()` as well, so a missing `modname`/`mod_settings` table can no longer 500 the admin screen |
+| `sql/xyto-update.sql` | creates `modname` *and* keeps `mod_settings` in sync; converts `keys_code.id_keys` to `AUTO_INCREMENT` when an upstream dump left it as a plain INT (CodeIgniter reads the id of a new key from `insert_id()`; without it every generated key collides on id 0) |
+| `public/conn.php` | shim so `FCPATH . 'conn.php'` resolves when the document root is `public/` |
+| `tools/connect_client_sim.py` | simulator of the client's `Login()` that reproduces nlohmann's strictness, used to verify the endpoint |
+
+**Verified** with the simulator against both deployment layouts (document root = repo root and
+document root = `public/`):
+
+| scenario | result |
+|----------|--------|
+| valid key, device already bound | `LOGIN OK`, token matches |
+| valid key, second device | `LOGIN OK`, serial appended to `devices` |
+| fresh key (`expired_date` NULL) | `LOGIN OK`, expiry written |
+| same key again (expiry set) | `LOGIN OK` |
+| expired / unknown / suspended key | `LOGIN FAILED` with a readable reason |
+| device slots full | `LOGIN FAILED` — "Max Device Reached" |
+| maintenance mode on | `LOGIN FAILED` — the operator's message, no crash |
+| `modname` + `mod_settings` missing | `LOGIN OK` (no 500) |
+| `Feature` / `_ftext` missing | `LOGIN OK` (no 500) |
+| `keys_code` missing | `LOGIN FAILED` — "Panel database unavailable", no 500 |
+
 ### 6.5 Admin surfaces
 
 * `/keys` — server-side DataTable. `KeysModel::API_getKeys()` builds the JSON with the helper
@@ -436,6 +518,9 @@ writes the single-row config table **`modname`** (`app/Models/Server.php:11`,
 `select * from modname where id=1` in `app/Controllers/Connect.php:182`). The script therefore
 creates a table nothing reads and does not create the one everything reads — so a fresh install
 from the script alone has a broken `/Server` screen and a broken `/connect` payload.
+
+**Fixed** on `fix/connect-endpoint`: the script now creates `modname` and keeps `mod_settings` in
+sync, and the controller reads either table (see §6.4.1).
 
 ### B10 — `Home::index()` renders a non-existent view
 
@@ -613,4 +698,5 @@ curl -s -o /dev/null -w '%{http_code}\n' http://localhost:8080/dashboard   # exp
 | 9 | Fix `getPrice` to multiply by devices; validate `loopcount` against the role allow-list | `app/Helpers/nata_helper.php:82`, `app/Controllers/Keys.php:503` |
 | 10 | bcrypt cost 8 → 12; drop the MD5 pre-hash                       | `app/Helpers/nata_helper.php:10` |
 | 11 | Remove `writable/`, `uploads/`, `project-root/`, `Protection.php` from the tracked tree; move `libunoimgui.so` to a release artifact | repo root |
-| 12 | Fix `sql/xyto-update.sql` to create `modname` (not `mod_settings`) and ship a real schema dump | `sql/xyto-update.sql` |
+| 12 | Fix `sql/xyto-update.sql` to create `modname` (not `mod_settings`) and ship a real schema dump — **done** (see §6.4.1) | `sql/xyto-update.sql` |
+| 13 | Make `/connect` answer the client's JSON contract: no 500s, no `null` where a string is expected, `modname`/`mod_settings` fallback — **done** (see §6.4.1) | `app/Controllers/Connect.php`, `app/Common.php` |

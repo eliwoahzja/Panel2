@@ -2,6 +2,9 @@ node_modules
 .idea
 .editorconfig
 
+# upstream repositories cloned for reference during analysis
+_repos/
+
 writable/session/*
 !writable/session/index.html
 writable/logs/*
