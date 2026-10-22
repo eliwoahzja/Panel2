@@ -160,7 +160,7 @@ own proxy handling is not involved — this is bespoke and untrusted.
 
 ## 5. Data model
 
-The schema is MySQL, database `itwqfbgt_ethnir`. Tables (as used by the code):
+The schema is MySQL, database `jqdmcnvd_shaii`. Tables (as used by the code):
 
 | table           | model           | key columns                                                        |
 |-----------------|-----------------|--------------------------------------------------------------------|

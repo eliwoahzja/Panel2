@@ -21,7 +21,7 @@ $allowedExtension = "so";
 date_default_timezone_set('Asia/Manila');
 $current_time = date('Y-m-d H:i:s');
 
-$PanelUrl = "https://ethnir.x10.mx/";
+$PanelUrl = "https://shaii.x10.mx/";
 
 $maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
 
