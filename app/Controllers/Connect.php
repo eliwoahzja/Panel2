@@ -127,7 +127,9 @@ class Connect extends BaseController
      */
     protected function checkDevicesAdd($serial, $devices, $max_dev)
     {
-        $lsDevice = array_filter(explode(',', (string) $devices), static fn ($d) => $d !== '');
+        $lsDevice = array_filter(explode(',', (string) $devices), static function ($d) {
+            return $d !== '';
+        });
         $cDevices = count($lsDevice);
         $serialOn = in_array($serial, $lsDevice, true);
 

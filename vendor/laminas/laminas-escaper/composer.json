@@ -16,29 +16,22 @@
         "forum": "https://discourse.laminas.dev"
     },
     "config": {
-        "sort-packages": true,
-        "platform": {
-            "php": "8.2.99"
-        },
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/package-versions-deprecated": true,
-            "infection/extension-installer": true
-        }
+        "sort-packages": true
     },
     "extra": {
     },
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
-        "ext-ctype": "*",
+        "php": "^7.3 || ~8.0.0 || ~8.1.0"
+    },
+    "suggest": {
+        "ext-iconv": "*",
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "infection/infection": "^0.31.0",
-        "laminas/laminas-coding-standard": "~3.1.0",
-        "phpunit/phpunit": "^11.5.42",
-        "psalm/plugin-phpunit": "^0.19.5",
-        "vimeo/psalm": "^6.13.1"
+        "laminas/laminas-coding-standard": "~2.3.0",
+        "phpunit/phpunit": "^9.3",
+        "psalm/plugin-phpunit": "^0.12.2",
+        "vimeo/psalm": "^3.16"
     },
     "autoload": {
         "psr-4": {

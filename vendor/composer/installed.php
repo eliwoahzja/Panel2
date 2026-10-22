@@ -1,13 +1,13 @@
 <?php return array(
     'root' => array(
         'name' => 'eliwoahzja/shai-panel',
-        'pretty_version' => 'dev-freebuff/509e4114e27d136418cd6aba',
-        'version' => 'dev-freebuff/509e4114e27d136418cd6aba',
-        'reference' => 'b49b784da69f697fc91aea87932b80dbef007e21',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'e21b46fc17c613e8b8f6f3a4bda4428dcf48b431',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => false,
+        'dev' => true,
     ),
     'versions' => array(
         'codeigniter4/framework' => array(
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'eliwoahzja/shai-panel' => array(
-            'pretty_version' => 'dev-freebuff/509e4114e27d136418cd6aba',
-            'version' => 'dev-freebuff/509e4114e27d136418cd6aba',
-            'reference' => 'b49b784da69f697fc91aea87932b80dbef007e21',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'e21b46fc17c613e8b8f6f3a4bda4428dcf48b431',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
-            'pretty_version' => '2.18.0',
-            'version' => '2.18.0.0',
-            'reference' => '06f211dfffff18d91844c1f55250d5d13c007e18',
+            'pretty_version' => '2.9.0',
+            'version' => '2.9.0.0',
+            'reference' => '891ad70986729e20ed2e86355fcf93c9dc238a5f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-escaper',
             'aliases' => array(),
